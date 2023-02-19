@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Bebas+Neue&display=swap");
+
+:root {
+  --bg: #2c2b25;
+  --highlight: #f6932d;
+  --text: #efefef;
+}
+
+body,
+main {
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Bebas Neue", sans-serif;
+}
+p,
+a,
+span {
+  font-family: "Barlow Condensed", sans-serif;
+}
+
+h1 {
+  font-size: 11rem;
+}
+h2 {
+  font-size: 8.75rem;
+}
+h3 {
+  font-size: 6.25rem;
+}
+h4 {
+  font-size: 4.75rem;
+}
+h5 {
+  font-size: 2.5rem;
+}
+h6 {
+  font-size: 1.25rem;
+}
+
+p {
+  font-size: 3.125rem;
+}

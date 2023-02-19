@@ -23,6 +23,7 @@ export const authOptions: NextAuthOptions = {
         session.user.location = user.location;
         session.user.avgRespTime = user.avgRespTime;
         session.user.numResponses = user.numResponses;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         session.user.printerProfile = user.printerProfile;
       }
       return session;
