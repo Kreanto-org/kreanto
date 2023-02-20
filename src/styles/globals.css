@@ -31,10 +31,11 @@ span {
 }
 
 h1 {
-  font-size: 11rem;
+  font-size: 8.5rem;
+  font-weight: bold;
 }
 h2 {
-  font-size: 8.75rem;
+  font-size: 7.5rem;
 }
 h3 {
   font-size: 6.25rem;
@@ -50,5 +51,6 @@ h6 {
 }
 
 p {
-  font-size: 3.125rem;
+  font-size: 1.125rem;
+  text-align: center;
 }
