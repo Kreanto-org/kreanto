@@ -5,8 +5,6 @@ const Tab: React.FC<{ name: string; href: string }> = ({ name, href }) => {
   const router = useRouter();
   const selected = router.pathname === href;
 
-  console.log(router.pathname, href);
-
   return (
     <div className="flex h-full flex-col ">
       <div

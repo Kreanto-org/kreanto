@@ -4,7 +4,6 @@ import Layout from "~/components/shared/layout";
 
 const Home: NextPage = () => {
   const { data } = useSession();
-  console.log(data?.user.age);
 
   return (
     <Layout>
