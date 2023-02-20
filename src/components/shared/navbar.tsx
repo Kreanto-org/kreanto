@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
         <Tab key={i} {...tab} />
       ))}
       <button
-        className="text-text-100 no-underline transition hover:-translate-y-0.5"
+        className="text-highlight no-underline transition hover:-translate-y-0.5"
         onClick={
           sessionData ? () => void signOut() : () => void signIn("google")
         }
