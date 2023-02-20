@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Layout from "~/components/layout";
+import Layout from "~/components/shared/layout";
 
 const Error404: React.FC = () => {
   return (
