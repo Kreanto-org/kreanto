@@ -3,4 +3,4 @@ interface ITab {
   href: string;
 }
 
-export const mainTabs: ITab[] = [{ name: "My Profile", href: "profile" }];
+export const mainTabs: ITab[] = [{ name: "My Profile", href: "/profile" }];
