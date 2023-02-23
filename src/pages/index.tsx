@@ -1,10 +1,7 @@
 import { type NextPage } from "next";
-import { useSession } from "next-auth/react";
 import Layout from "~/components/shared/layout";
 
 const Home: NextPage = () => {
-  const { data } = useSession();
-
   return (
     <Layout>
       <h1 className="mt-10 tracking-tight text-white sm:text-[5rem]">

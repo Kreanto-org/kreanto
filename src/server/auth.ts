@@ -25,6 +25,8 @@ export const authOptions: NextAuthOptions = {
         session.user.numResponses = user.numResponses;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         session.user.printerProfile = user.printerProfile;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        session.user.hasSignedUp = user.hasSignedUp;
       }
       return session;
     },

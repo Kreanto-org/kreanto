@@ -61,16 +61,18 @@ model User {
     lastActive      DateTime @default(now())
     avgRespTime     Int @default(0)
     numResponses    Int @default(0)
-    printerProfile  PrinterProfile? 
+    printerProfile  PrinterProfile?
+    hasSignedUp     Boolean @default(false)
 }
 
 model PrinterProfile {
   // These are for printers, if the user isn't a printer, empty
   user          User? @relation(fields: [userId], references: [id])
   userId        String @unique
-  printTime     PrintTime @default(DESIGNER)
-  colorType     ColorType @default(DESIGNER)
 	points        Int @default(0)
+
+  printTime     PrintTime @default(LOW)
+  colorType     ColorType @default(SINGLE)
   colors        Color[]
 }
 
@@ -92,14 +94,12 @@ model VerificationToken {
 
 
 enum PrintTime {
-  DESIGNER
   LOW
   MED
   HI
 }
 
 enum ColorType {
-  DESIGNER
   SINGLE
   LAYERED
   FULL
