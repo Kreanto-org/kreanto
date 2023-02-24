@@ -97,29 +97,6 @@ const SignUpPage: NextPage = () => {
           Join Now!
         </Button>
       </form>
-      <p className="my-[2rem]">
-        ***IF YOU HAVE SUBMITTED ARTICLES IN THE PAST**
-      </p>
-      <ul>
-        <li>
-          <p>
-            Please don&apos;t submit anything before linking with your old
-            account!
-          </p>
-        </li>
-        <li>
-          <p>
-            Message us on the discord or talk to us in a meeting to link your
-            account!
-          </p>
-        </li>
-        <li>
-          <p>
-            Ignore this message if your articles were never published yall r
-            good
-          </p>
-        </li>
-      </ul>
     </Layout>
   );
 };
