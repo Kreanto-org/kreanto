@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Footer: React.FC = () => {
   return (
-    <div className="mt-[5rem] flex h-[10rem] w-screen items-center justify-between bg-bg-200 px-20 shadow">
+    <div className="mt-auto flex h-[10rem] w-screen items-center justify-between bg-bg-200 px-20 shadow">
       <div className="flex gap-4">
         <Image src="/logo.svg" alt="" width={45} height={45} />
         <div className="flex h-full flex-col justify-between">

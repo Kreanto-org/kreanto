@@ -20,10 +20,10 @@ const colors = [
   { name: "Purple", hex: "#7b17e6", index: 16 },
   { name: "Dark Purple", hex: "#3c0d6e", index: 17 },
   { name: "White", hex: "#ffffff", index: 18 },
-  { name: "Black", hex: "#000000", index: 19 },
-  { name: "Light Gray", hex: "#bdbdbd", index: 20 },
-  { name: "Gray", hex: "#828282", index: 21 },
-  { name: "Dark Gray", hex: "#3d3d3d", index: 22 },
+  { name: "Light Gray", hex: "#bdbdbd", index: 19 },
+  { name: "Gray", hex: "#828282", index: 20 },
+  { name: "Dark Gray", hex: "#3d3d3d", index: 21 },
+  { name: "Black", hex: "#000000", index: 22 },
   { name: "Brown", hex: "#612f00", index: 23 },
 ];
 
