@@ -2,15 +2,18 @@ import { api } from "~/utils/api";
 
 const Swatch: React.FC<{ name: string; hex: string }> = ({ name, hex }) => {
   return (
-    <div className="items-between flex h-full w-full flex-col justify-between gap-2 rounded border border-text-300 px-2 pb-2 pt-4 peer-checked:border-text-100">
-      <div className="flex w-full flex-1 items-center justify-center">
-        <div
-          className={`h-10 w-10 rounded`}
-          style={{ background: hex /* Tailwind wasn't working */ }}
-        />
+    <label>
+      <input type="checkbox" className="peer opacity-0" />
+      <div className="items-between flex h-full w-full flex-col justify-between gap-2 rounded-lg border border-text-300 px-2 pb-2 pt-4 peer-checked:border-text-100 peer-checked:bg-white/5">
+        <div className="flex w-full flex-1 items-center justify-center">
+          <div
+            className={`h-10 w-10 rounded`}
+            style={{ background: hex /* Tailwind wasn't working */ }}
+          />
+        </div>
+        <p>{name}</p>
       </div>
-      <p>{name}</p>
-    </div>
+    </label>
   );
 };
 
