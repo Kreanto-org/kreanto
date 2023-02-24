@@ -72,12 +72,16 @@ model PrinterProfile {
 	points        Int @default(0)
 
   printTime     PrintTime @default(LOW)
-  colorType     ColorType @default(SINGLE)
+  numColors     ColorType @default(SINGLE)
   colors        Color[]
+  length        Int @default(150)
+  width         Int @default(150)
+  height        Int @default(150)
 }
 
 model Color{
   name    String
+  hex     String
   user    PrinterProfile @relation(fields: [userId], references: [userId])
   userId  String @unique
 }
@@ -90,17 +94,14 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-
-
+enum ColorType {
+  SINGLE
+  LAYERED
+  FULL
+}
 
 enum PrintTime {
   LOW
   MED
   HI
-}
-
-enum ColorType {
-  SINGLE
-  LAYERED
-  FULL
 }

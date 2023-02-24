@@ -22,6 +22,25 @@ const PrinterInfo: React.FC = () => {
           right
         />
       </div>
+      <div className="flex">
+        <PrinterInfoButton
+          groupName="colorType"
+          title="Single"
+          description="One print can have one color"
+          left
+        />
+        <PrinterInfoButton
+          groupName="colorType"
+          title="Layered"
+          description="Different layers can have different colors"
+        />
+        <PrinterInfoButton
+          groupName="colorType"
+          title="Full"
+          description="One layer can have multiple colors"
+          right
+        />
+      </div>
     </>
   );
 };
