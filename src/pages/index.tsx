@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Layout from "~/components/shared/layout";
 import ChooseRole from "~/components/specific/sign-up/choose-role";
+import PrinterInfo from "~/components/specific/sign-up/printer-info";
 
 const Home: NextPage = () => {
   return (
@@ -12,6 +13,7 @@ const Home: NextPage = () => {
         Bridging the gap, one design at a time.
       </p>
       <ChooseRole />
+      <PrinterInfo />
     </Layout>
   );
 };
