@@ -10,6 +10,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import useIsMobile from "~/hooks/useIsMobile";
 import Layout from "~/components/shared/layout";
 import type { Color, ColorType, PrintTime } from "@prisma/client";
+import AgeLocation from "~/components/specific/sign-up/age-location";
 
 interface NewUserData {
   age: number;
@@ -59,14 +60,14 @@ const SignUpPage: NextPage = () => {
 
   console.log(sessionData?.user.hasSignedUp);
 
-  if (sessionData?.user.hasSignedUp) {
-    void router.push((router.query.redirect || "/") as string);
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <p>One moment please...</p>
-      </div>
-    );
-  }
+  // if (sessionData?.user.hasSignedUp) {
+  //   void router.push((router.query.redirect || "/") as string);
+  //   return (
+  //     <div className="flex h-screen items-center justify-center">
+  //       <p>One moment please...</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <Layout title="Sign Up!">
@@ -83,26 +84,11 @@ const SignUpPage: NextPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         style={{ width: isMobile ? "85vw" : "60vw" }}
       >
-        <p>
-          Age:<span style={{ color: "red" }}> *</span>
-        </p>
-
-        <input
-          required
-          placeholder="Age"
-          {...register("age", {
+        <AgeLocation
+          ageData={register("age", {
             required: true,
           })}
-        />
-
-        <p>
-          Location:<span style={{ color: "red" }}> *</span>
-        </p>
-
-        <input
-          required
-          placeholder="Location"
-          {...register("location", {
+          locData={register("location", {
             required: true,
           })}
         />
