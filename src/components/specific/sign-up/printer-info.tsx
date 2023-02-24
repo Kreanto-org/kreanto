@@ -1,3 +1,4 @@
+import ColorSection from "./color-section";
 import PrinterInfoButton from "./printer-info-button";
 
 const PrinterInfo: React.FC = () => {
@@ -41,6 +42,7 @@ const PrinterInfo: React.FC = () => {
           right
         />
       </div>
+      <ColorSection />
     </>
   );
 };
