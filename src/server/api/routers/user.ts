@@ -1,4 +1,4 @@
-import { ColorType, PrintTime } from "@prisma/client";
+import { ColorType, PrintTime, Prisma } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -28,24 +28,6 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       console.log(input);
-      let printerProfile = {};
-      if (input.printer) {
-        printerProfile = {
-          create: {
-            ...input.printer,
-            colors: {
-              connect: input.printer?.colors.map((colorName) => {
-                return {
-                  printerId_colorName: {
-                    printerId: input.id,
-                    colorName: colorName,
-                  },
-                };
-              }),
-            },
-          },
-        };
-      }
 
       return await ctx.prisma.user.update({
         where: {
@@ -55,7 +37,18 @@ export const userRouter = createTRPCRouter({
           hasSignedUp: true,
           age: input.age,
           location: input.location,
-          printerProfile: printerProfile,
+          printerProfile: input.printer
+            ? {
+                create: {
+                  ...input.printer,
+                  colors: {
+                    create: input.printer.colors.map((color) => ({
+                      colorName: color,
+                    })),
+                  },
+                },
+              }
+            : undefined,
         },
       });
     }),
