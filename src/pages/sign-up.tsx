@@ -16,7 +16,7 @@ import { useState } from "react";
 import ChooseRole from "~/components/specific/sign-up/choose-role";
 import PrinterInfo from "~/components/specific/sign-up/printer-info";
 
-interface NewUserData {
+export interface NewUserData {
   age: number;
   location: string;
   printTime?: PrintTime;
@@ -40,6 +40,7 @@ const SignUpPage: NextPage = () => {
     register,
     watch,
     formState: { errors },
+    setValue,
   } = useForm<NewUserData>({
     criteriaMode: "all",
   });
@@ -56,6 +57,7 @@ const SignUpPage: NextPage = () => {
     };
 
     if (role === "PRINTER") {
+      console.log(data.colorType);
       await completeSignUp.mutateAsync({
         ...signUpData,
         printer: {
@@ -133,7 +135,10 @@ const SignUpPage: NextPage = () => {
                 widthData={register("width", { required: true })}
                 heightData={register("height", { required: true })}
               />
-              <PrinterInfo setColorChoices={setColorChoices} />
+              <PrinterInfo
+                setColorChoices={setColorChoices}
+                setValue={setValue}
+              />
             </>
           )}
 

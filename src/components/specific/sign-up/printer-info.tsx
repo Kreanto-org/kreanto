@@ -1,9 +1,12 @@
+import type { UseFormSetValue } from "react-hook-form";
 import ColorSection from "./color-section";
 import PrinterInfoButton from "./printer-info-button";
+import type { NewUserData } from "~/pages/sign-up";
 
 const PrinterInfo: React.FC<{
   setColorChoices: React.Dispatch<React.SetStateAction<string[]>>;
-}> = ({ setColorChoices }) => {
+  setValue: UseFormSetValue<NewUserData>;
+}> = ({ setColorChoices, setValue }) => {
   return (
     <div className="flex w-full flex-col">
       <p className="mt-4 w-full text-left">
@@ -17,17 +20,20 @@ const PrinterInfo: React.FC<{
           groupName="printAvailability"
           title="Low"
           description="< 5 hours/week"
+          onClick={() => setValue("printTime", "LOW")}
           left
         />
         <PrinterInfoButton
           groupName="printAvailability"
           title="Average"
           description="5-25 hours/week"
+          onClick={() => setValue("printTime", "MED")}
         />
         <PrinterInfoButton
           groupName="printAvailability"
           title="High"
           description="> 25 hours/week"
+          onClick={() => setValue("printTime", "HI")}
           right
         />
       </div>
@@ -42,17 +48,20 @@ const PrinterInfo: React.FC<{
           groupName="colorType"
           title="Single"
           description="One print can have one color"
+          onClick={() => setValue("colorType", "SINGLE")}
           left
         />
         <PrinterInfoButton
           groupName="colorType"
           title="Layered"
           description="Different layers can have different colors"
+          onClick={() => setValue("colorType", "LAYERED")}
         />
         <PrinterInfoButton
           groupName="colorType"
           title="Full"
           description="One layer can have multiple colors"
+          onClick={() => setValue("colorType", "FULL")}
           right
         />
       </div>

@@ -12,16 +12,16 @@ export const userRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string(),
-        age: z.number(),
+        age: z.coerce.number(),
         location: z.string(),
         printer: z
           .object({
             printTime: z.nativeEnum(PrintTime).default("LOW"),
             colorType: z.nativeEnum(ColorType).default("SINGLE"),
             colors: z.array(z.string()),
-            length: z.number(),
-            width: z.number(),
-            height: z.number(),
+            length: z.coerce.number(),
+            width: z.coerce.number(),
+            height: z.coerce.number(),
           })
           .optional(),
       })
@@ -39,16 +39,17 @@ export const userRouter = createTRPCRouter({
           printerProfile: {
             create: {
               ...input.printer,
-              colors: {
-                connect: input.printer?.colors.map((colorName) => {
-                  return {
-                    printerId_colorName: {
-                      printerId: input.id,
-                      colorName: colorName,
-                    },
-                  };
-                }),
-              },
+              // colors: {
+              //   connect: input.printer?.colors.map((colorName) => {
+              //     return {
+              //       printerId_colorName: {
+              //         printerId: input.id,
+              //         colorName: colorName,
+              //       },
+              //     };
+              //   }),
+              // },
+              colors: {},
             },
           },
         },
