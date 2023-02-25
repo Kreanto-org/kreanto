@@ -28,6 +28,25 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       console.log(input);
+      let printerProfile = {};
+      if (input.printer) {
+        printerProfile = {
+          create: {
+            ...input.printer,
+            colors: {
+              connect: input.printer?.colors.map((colorName) => {
+                return {
+                  printerId_colorName: {
+                    printerId: input.id,
+                    colorName: colorName,
+                  },
+                };
+              }),
+            },
+          },
+        };
+      }
+
       return await ctx.prisma.user.update({
         where: {
           id: input.id,
@@ -36,22 +55,7 @@ export const userRouter = createTRPCRouter({
           hasSignedUp: true,
           age: input.age,
           location: input.location,
-          printerProfile: {
-            create: {
-              ...input.printer,
-              // colors: {
-              //   connect: input.printer?.colors.map((colorName) => {
-              //     return {
-              //       printerId_colorName: {
-              //         printerId: input.id,
-              //         colorName: colorName,
-              //       },
-              //     };
-              //   }),
-              // },
-              colors: {},
-            },
-          },
+          printerProfile: printerProfile,
         },
       });
     }),
