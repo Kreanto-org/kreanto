@@ -21,11 +21,11 @@ const RadioButton: React.FC<RadioButtonProps> = ({
       <input
         type="radio"
         name={groupName}
-        className="peer opacity-0"
+        className="peer absolute opacity-0"
         checked={selected}
       />
       <div
-        className={`flex flex-col items-center border border-text-300 p-3 peer-checked:border-text-100 ${
+        className={`flex flex-col items-center border border-text-300 p-3 text-text-200 peer-checked:border-2 peer-checked:border-text-100 peer-checked:text-text-100 ${
           className ?? ""
         } ${left ? "rounded-l-lg" : ""} ${right ? "rounded-r-lg" : ""} ${
           noBg ? "" : "peer-checked:bg-white/10"

@@ -8,8 +8,11 @@ const PrintVolumeSection: React.FC<{
 }> = ({ lengthData, widthData, heightData }) => {
   return (
     <div>
-      <p className="mb-1 mt-4 w-full text-left">
+      <p className="mt-4 w-full text-left">
         Print Volume:<span style={{ color: "red" }}> *</span>
+      </p>
+      <p className="mb-4 w-full text-left text-[1rem] text-text-200">
+        What are the dimensions of your printer?
       </p>
 
       <div className="flex items-center gap-2">

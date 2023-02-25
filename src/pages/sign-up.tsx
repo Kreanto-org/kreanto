@@ -12,6 +12,9 @@ import Layout from "~/components/shared/layout";
 import type { Color, ColorType, PrintTime } from "@prisma/client";
 import AgeLocation from "~/components/specific/sign-up/age-location";
 import PrintVolumeSection from "~/components/specific/sign-up/print-volume-section";
+import { useState } from "react";
+import ChooseRole from "~/components/specific/sign-up/choose-role";
+import PrinterInfo from "~/components/specific/sign-up/printer-info";
 
 interface NewUserData {
   age: number;
@@ -30,17 +33,14 @@ const SignUpPage: NextPage = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
 
+  const [role, setRole] = useState("");
+
   const { handleSubmit, register } = useForm<NewUserData>({
     criteriaMode: "all",
-    defaultValues: {
-      age: 16,
-    },
   });
 
   const onSubmit: SubmitHandler<NewUserData> = async (data) => {
-    console.log("Hello....");
     if (!sessionData?.user.id) return;
-    console.log("World!");
 
     await completeSignUp.mutateAsync({
       id: sessionData?.user.id,
@@ -80,32 +80,50 @@ const SignUpPage: NextPage = () => {
       <p>Tell us a bit more about yourself!</p>
       <p>(You can always change this info later)</p>
 
-      <form
-        autoComplete="off"
-        onKeyDown={(e) => {
-          e.key === "Enter" && e.preventDefault();
-        }}
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ width: isMobile ? "85vw" : "60vw" }}
-      >
-        <AgeLocation
-          ageData={register("age", {
-            required: true,
-          })}
-          locData={register("location", {
-            required: true,
-          })}
-        />
-        <PrintVolumeSection
-          lengthData={register("length", { required: true })}
-          widthData={register("width", { required: true })}
-          heightData={register("height", { required: true })}
-        />
+      {role ? (
+        <form
+          autoComplete="off"
+          onKeyDown={(e) => {
+            e.key === "Enter" && e.preventDefault();
+          }}
+          onSubmit={handleSubmit(onSubmit)}
+          style={{ width: isMobile ? "85vw" : "60vw" }}
+        >
+          <AgeLocation
+            ageData={register("age", {
+              required: true,
+            })}
+            locData={register("location", {
+              required: true,
+            })}
+          />
 
-        <Button type="submit" className="mt-[1rem]">
-          Join Now!
-        </Button>
-      </form>
+          {role === "PRINTER" && (
+            <>
+              <hr className="mt-4 border-text-300" />
+              <h3 className="mt-3">Printer Info</h3>
+              <p className=" text-left text-text-200">
+                This section is meant to gather a little more information about
+                how you print. If you have more than one printer, answer the
+                printer-specific questions with information about the printer
+                you use most often.
+              </p>
+              <PrintVolumeSection
+                lengthData={register("length", { required: true })}
+                widthData={register("width", { required: true })}
+                heightData={register("height", { required: true })}
+              />
+              <PrinterInfo />
+            </>
+          )}
+
+          <Button type="submit" className="mt-[1rem]">
+            Join Now!
+          </Button>
+        </form>
+      ) : (
+        <ChooseRole setValue={setRole} />
+      )}
     </Layout>
   );
 };

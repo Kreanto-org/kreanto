@@ -5,11 +5,13 @@ const RoleButton: React.FC<{
   name: string;
   description: string;
   icon?: string;
-}> = ({ name, description, icon }) => {
+  onClick?: () => void;
+}> = ({ name, description, icon, onClick }) => {
   return (
     <RadioButton
       groupName="signup-role-button"
       className="peer-checked:shadow-[2px_2px_0px_0px_rgba(224,224,224,1)]"
+      onClick={onClick}
       left
       right
     >

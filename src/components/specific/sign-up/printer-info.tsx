@@ -3,7 +3,13 @@ import PrinterInfoButton from "./printer-info-button";
 
 const PrinterInfo: React.FC = () => {
   return (
-    <>
+    <div className="flex w-full flex-col">
+      <p className="mt-4 w-full text-left">
+        Print Availability:<span style={{ color: "red" }}> *</span>
+      </p>
+      <p className="mb-4 w-full text-left text-[1rem] text-text-200">
+        How available would you be to print models for people?
+      </p>
       <div className="flex">
         <PrinterInfoButton
           groupName="printAvailability"
@@ -23,6 +29,12 @@ const PrinterInfo: React.FC = () => {
           right
         />
       </div>
+      <p className="mt-4 w-full text-left">
+        Color mode:<span style={{ color: "red" }}> *</span>
+      </p>
+      <p className="mb-4 w-full text-left text-[1rem] text-text-200">
+        How many colors can one print have?
+      </p>
       <div className="flex">
         <PrinterInfoButton
           groupName="colorType"
@@ -42,8 +54,14 @@ const PrinterInfo: React.FC = () => {
           right
         />
       </div>
+      <p className="mt-4 w-full text-left">
+        Colors:<span style={{ color: "red" }}> *</span>
+      </p>
+      <p className="mb-4 w-full text-left text-[1rem] text-text-200">
+        Which colors can you currently print? (You can update this at any point)
+      </p>
       <ColorSection />
-    </>
+    </div>
   );
 };
 
