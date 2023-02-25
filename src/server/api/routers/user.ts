@@ -1,4 +1,4 @@
-import { ColorType, PrintTime, Prisma } from "@prisma/client";
+import { ColorType, PrintTime } from "@prisma/client";
 import { z } from "zod";
 
 import {

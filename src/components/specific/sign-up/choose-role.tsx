@@ -8,7 +8,7 @@ const ChooseRole: React.FC<{
   const [role, setRole] = useState<"" | "DESIGNER" | "PRINTER">("");
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="flex w-full items-center justify-center">
+      <div className="my-10 flex w-2/3 items-center justify-evenly">
         <RoleButton
           name="Designer"
           description="Design 3d objects to be printed."
@@ -20,7 +20,9 @@ const ChooseRole: React.FC<{
           onClick={() => setRole("PRINTER")}
         />
       </div>
-      <Button onClick={() => setValue(role)}>Confirm</Button>
+      <Button onClick={() => setValue(role)} disabled={role === ""}>
+        Confirm
+      </Button>
     </div>
   );
 };
