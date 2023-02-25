@@ -16,11 +16,21 @@ const PrintVolumeSection: React.FC<{
       </p>
 
       <div className="flex items-center gap-2">
-        <Input required placeholder="Length (mm)" {...lengthData} />
+        <Input
+          required
+          placeholder="Length (mm)"
+          {...lengthData}
+          type="number"
+        />
         <h6>X</h6>
-        <Input required placeholder="Width (mm)" {...widthData} />
+        <Input required placeholder="Width (mm)" {...widthData} type="number" />
         <h6>X</h6>
-        <Input required placeholder="Height (mm)" {...heightData} />
+        <Input
+          required
+          placeholder="Height (mm)"
+          {...heightData}
+          type="number"
+        />
       </div>
     </div>
   );

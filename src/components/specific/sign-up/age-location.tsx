@@ -11,7 +11,7 @@ const AgeLocation: React.FC<{
         Age:<span style={{ color: "red" }}> *</span>
       </p>
 
-      <Input required placeholder="Age" {...ageData} />
+      <Input required placeholder="Age" {...ageData} type="number" />
 
       <p className="mb-1 mt-4 w-full text-left">
         Location:<span style={{ color: "red" }}> *</span>
