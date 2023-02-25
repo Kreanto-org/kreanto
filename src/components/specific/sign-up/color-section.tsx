@@ -1,10 +1,9 @@
 import type { Color } from "@prisma/client";
-import { useState } from "react";
 import { api } from "~/utils/api";
 
 const Swatch: React.FC<{
   color: Color;
-  setSelected: React.Dispatch<React.SetStateAction<Color[]>>;
+  setSelected: React.Dispatch<React.SetStateAction<string[]>>;
 }> = ({ color, setSelected }) => {
   return (
     <label>
@@ -13,9 +12,9 @@ const Swatch: React.FC<{
         className="peer absolute opacity-0"
         onChange={(e) => {
           if (e.target.checked) {
-            setSelected((prev) => [...prev, color]);
+            setSelected((prev) => [...prev, color.name]);
           } else {
-            setSelected((prev) => prev.filter((col) => col !== color));
+            setSelected((prev) => prev.filter((col) => col !== color.name));
           }
         }}
       />
@@ -32,15 +31,16 @@ const Swatch: React.FC<{
   );
 };
 
-const ColorSection: React.FC = () => {
+const ColorSection: React.FC<{
+  setColorChoices: React.Dispatch<React.SetStateAction<string[]>>;
+}> = ({ setColorChoices }) => {
   const colorsQuery = api.colors.getAll.useQuery();
   const colors = colorsQuery.data;
-  const [selected, setSelected] = useState<Color[]>([]);
 
   return (
     <div className="grid grid-cols-4 gap-4">
       {colors?.map((color, i) => (
-        <Swatch color={color} setSelected={setSelected} key={i} />
+        <Swatch color={color} setSelected={setColorChoices} key={i} />
       ))}
     </div>
   );

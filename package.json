@@ -8,7 +8,8 @@
     "postinstall": "prisma generate",
     "seed": "NODE_ENV=development prisma db seed",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "restart": "yarn prisma db push --force-reset && yarn prisma db push && yarn prisma generate && yarn seed"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

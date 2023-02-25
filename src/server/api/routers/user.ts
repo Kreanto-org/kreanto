@@ -1,3 +1,4 @@
+import { ColorType, PrintTime } from "@prisma/client";
 import { z } from "zod";
 
 import {
@@ -13,6 +14,16 @@ export const userRouter = createTRPCRouter({
         id: z.string(),
         age: z.number(),
         location: z.string(),
+        printer: z
+          .object({
+            printTime: z.nativeEnum(PrintTime).default("LOW"),
+            colorType: z.nativeEnum(ColorType).default("SINGLE"),
+            colors: z.array(z.string()),
+            length: z.number(),
+            width: z.number(),
+            height: z.number(),
+          })
+          .optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -25,6 +36,21 @@ export const userRouter = createTRPCRouter({
           hasSignedUp: true,
           age: input.age,
           location: input.location,
+          printerProfile: {
+            create: {
+              ...input.printer,
+              colors: {
+                connect: input.printer?.colors.map((colorName) => {
+                  return {
+                    printerId_colorName: {
+                      printerId: input.id,
+                      colorName: colorName,
+                    },
+                  };
+                }),
+              },
+            },
+          },
         },
       });
     }),

@@ -1,5 +1,5 @@
 import type { UseFormRegisterReturn } from "react-hook-form";
-import Input from "~/components/ui/input";
+import { Input } from "~/components/ui/input";
 
 const PrintVolumeSection: React.FC<{
   lengthData: UseFormRegisterReturn;
@@ -12,15 +12,15 @@ const PrintVolumeSection: React.FC<{
         Print Volume:<span style={{ color: "red" }}> *</span>
       </p>
       <p className="mb-4 w-full text-left text-[1rem] text-text-200">
-        What are the dimensions of your printer?
+        What are the dimensions of your printer (in mm)?
       </p>
 
       <div className="flex items-center gap-2">
-        <Input required placeholder="Length" {...lengthData} />
+        <Input required placeholder="Length (mm)" {...lengthData} />
         <h6>X</h6>
-        <Input required placeholder="Width" {...widthData} />
+        <Input required placeholder="Width (mm)" {...widthData} />
         <h6>X</h6>
-        <Input required placeholder="Height" {...heightData} />
+        <Input required placeholder="Height (mm)" {...heightData} />
       </div>
     </div>
   );

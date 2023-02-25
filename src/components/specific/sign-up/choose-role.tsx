@@ -3,9 +3,9 @@ import RoleButton from "./role-button";
 import { useState } from "react";
 
 const ChooseRole: React.FC<{
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: React.Dispatch<React.SetStateAction<"" | "DESIGNER" | "PRINTER">>;
 }> = ({ setValue }) => {
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState<"" | "DESIGNER" | "PRINTER">("");
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
       <div className="flex w-full items-center justify-center">

@@ -1,5 +1,5 @@
 import type { UseFormRegisterReturn } from "react-hook-form";
-import Input from "~/components/ui/input";
+import { Input } from "~/components/ui/input";
 
 const AgeLocation: React.FC<{
   ageData: UseFormRegisterReturn;

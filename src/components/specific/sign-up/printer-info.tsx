@@ -1,7 +1,9 @@
 import ColorSection from "./color-section";
 import PrinterInfoButton from "./printer-info-button";
 
-const PrinterInfo: React.FC = () => {
+const PrinterInfo: React.FC<{
+  setColorChoices: React.Dispatch<React.SetStateAction<string[]>>;
+}> = ({ setColorChoices }) => {
   return (
     <div className="flex w-full flex-col">
       <p className="mt-4 w-full text-left">
@@ -60,7 +62,7 @@ const PrinterInfo: React.FC = () => {
       <p className="mb-4 w-full text-left text-[1rem] text-text-200">
         Which colors can you currently print? (You can update this at any point)
       </p>
-      <ColorSection />
+      <ColorSection setColorChoices={setColorChoices} />
     </div>
   );
 };

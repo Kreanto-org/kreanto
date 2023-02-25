@@ -72,7 +72,7 @@ model PrinterProfile {
 	points        Int @default(0)
 
   printTime     PrintTime @default(LOW)
-  numColors     ColorType @default(SINGLE)
+  colorType     ColorType @default(SINGLE)
   colors        ColorsOnPrinterProfile[]
   length        Int @default(150)
   width         Int @default(150)

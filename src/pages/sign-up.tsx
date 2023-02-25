@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import useIsMobile from "~/hooks/useIsMobile";
 import Layout from "~/components/shared/layout";
-import type { Color, ColorType, PrintTime } from "@prisma/client";
+import type { ColorType, PrintTime } from "@prisma/client";
 import AgeLocation from "~/components/specific/sign-up/age-location";
 import PrintVolumeSection from "~/components/specific/sign-up/print-volume-section";
 import { useState } from "react";
@@ -21,7 +21,6 @@ interface NewUserData {
   location: string;
   printTime?: PrintTime;
   colorType?: ColorType;
-  colors?: Color[];
   length?: number;
   width?: number;
   height?: number;
@@ -33,24 +32,45 @@ const SignUpPage: NextPage = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
 
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState<"" | "DESIGNER" | "PRINTER">("");
+  const [colorChoices, setColorChoices] = useState<string[]>([]);
 
-  const { handleSubmit, register } = useForm<NewUserData>({
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors },
+  } = useForm<NewUserData>({
     criteriaMode: "all",
   });
+  console.log(watch("age"));
 
   const onSubmit: SubmitHandler<NewUserData> = async (data) => {
     if (!sessionData?.user.id) return;
+    console.log("Hello?");
 
-    await completeSignUp.mutateAsync({
+    const signUpData = {
       id: sessionData?.user.id,
-      ...data,
-    });
+      age: data.age,
+      location: data.location,
+    };
+
+    if (role === "PRINTER") {
+      await completeSignUp.mutateAsync({
+        ...signUpData,
+        printer: {
+          colors: colorChoices,
+          printTime: data.printTime,
+          colorType: data.colorType,
+          length: data.length ?? 150,
+          width: data.width ?? 150,
+          height: data.height ?? 150,
+        },
+      });
+    } else await completeSignUp.mutateAsync(signUpData);
 
     const event = new Event("visibilitychange");
     document.dispatchEvent(event);
-
-    console.log(data);
 
     router.push((router.query.redirect || "/") as string);
   };
@@ -113,11 +133,15 @@ const SignUpPage: NextPage = () => {
                 widthData={register("width", { required: true })}
                 heightData={register("height", { required: true })}
               />
-              <PrinterInfo />
+              <PrinterInfo setColorChoices={setColorChoices} />
             </>
           )}
 
-          <Button type="submit" className="mt-[1rem]">
+          <Button
+            type="submit"
+            onClick={() => console.log(errors)}
+            className="mt-[1rem]"
+          >
             Join Now!
           </Button>
         </form>
