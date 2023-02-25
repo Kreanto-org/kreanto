@@ -19,7 +19,7 @@ const Swatch: React.FC<{
           }
         }}
       />
-      <div className="items-between flex h-full w-full flex-col justify-between gap-4 rounded-lg border border-text-300 px-2 pb-3 pt-5 peer-checked:border-text-100 peer-checked:bg-white/5">
+      <div className="items-between flex h-full w-full flex-col justify-between gap-4 rounded-lg border border-text-300 px-2 pb-3 pt-5 peer-checked:border-2 peer-checked:border-text-100 peer-checked:bg-white/5">
         <div className="flex w-full flex-1 items-center justify-center">
           <div
             className={`h-10 w-10 rounded`}

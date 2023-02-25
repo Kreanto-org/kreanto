@@ -11,6 +11,7 @@ import useIsMobile from "~/hooks/useIsMobile";
 import Layout from "~/components/shared/layout";
 import type { Color, ColorType, PrintTime } from "@prisma/client";
 import AgeLocation from "~/components/specific/sign-up/age-location";
+import PrintVolumeSection from "~/components/specific/sign-up/print-volume-section";
 
 interface NewUserData {
   age: number;
@@ -18,6 +19,9 @@ interface NewUserData {
   printTime?: PrintTime;
   colorType?: ColorType;
   colors?: Color[];
+  length?: number;
+  width?: number;
+  height?: number;
 }
 
 const SignUpPage: NextPage = () => {
@@ -91,6 +95,11 @@ const SignUpPage: NextPage = () => {
           locData={register("location", {
             required: true,
           })}
+        />
+        <PrintVolumeSection
+          lengthData={register("length", { required: true })}
+          widthData={register("width", { required: true })}
+          heightData={register("height", { required: true })}
         />
 
         <Button type="submit" className="mt-[1rem]">
