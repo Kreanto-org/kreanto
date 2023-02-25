@@ -79,7 +79,7 @@ model PrinterProfile {
   height        Int @default(150)
 }
 
-model Color{
+model Color {
   name    String @unique
   hex     String
   index   Int
