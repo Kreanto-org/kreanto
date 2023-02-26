@@ -37,7 +37,7 @@ const PrinterInfoSection: React.FC<{ profile: PrinterProfile }> = ({
       <div className="flex items-center gap-2">
         <MdOutlineColorLens />{" "}
         <p className="capitalize">{colorTypeWords[profile.colorType]} color</p>
-        <InfoTooltip>
+        <InfoTooltip learnMore="/info/colors">
           This tells you how many colors this person can use in a single print.
         </InfoTooltip>
       </div>
