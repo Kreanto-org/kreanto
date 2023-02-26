@@ -13,8 +13,11 @@ const AgeLocation: React.FC<{
 
       <Input required placeholder="Age" {...ageData} type="number" />
 
-      <p className="mb-1 mt-4 w-full text-left">
+      <p className="mt-4 w-full text-left">
         Location:<span style={{ color: "red" }}> *</span>
+      </p>
+      <p className="mb-3 w-full text-left text-[1rem] text-text-200">
+        Where are you in the world? (ex. New York City, New York)
       </p>
 
       <Input required placeholder="Location" {...locData} />

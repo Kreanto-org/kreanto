@@ -4,6 +4,7 @@ export interface RadioButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   right?: boolean;
   noBg?: boolean;
   selected?: boolean;
+  outerClassName?: string;
 }
 
 const RadioButton: React.FC<RadioButtonProps> = ({
@@ -13,11 +14,12 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   right = false,
   noBg = false,
   selected, // Causes strange behavior
+  outerClassName,
   children,
   ...rest
 }) => {
   return (
-    <label>
+    <label className={outerClassName}>
       <input
         type="radio"
         name={groupName}

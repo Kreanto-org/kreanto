@@ -11,12 +11,12 @@ const ChooseRole: React.FC<{
       <div className="my-10 flex w-2/3 items-center justify-evenly">
         <RoleButton
           name="Designer"
-          description="Design 3d objects to be printed."
+          description="For those who may not have access to a 3d printer but would like to participate and fuel their stem experiences."
           onClick={() => setRole("DESIGNER")}
         />
         <RoleButton
           name="Printer"
-          description="Print 3d objects for designers."
+          description="For those who have access to a 3d printer and would be ready and willing to help people who want to participate."
           onClick={() => setRole("PRINTER")}
         />
       </div>

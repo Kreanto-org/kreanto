@@ -86,18 +86,18 @@ const SignUpPage: NextPage = () => {
 
   console.log(sessionData?.user.hasSignedUp);
 
-  // if (sessionData?.user.hasSignedUp) {
-  //   void router.push((router.query.redirect || "/") as string);
-  //   return (
-  //     <div className="flex h-screen items-center justify-center">
-  //       <p>One moment please...</p>
-  //     </div>
-  //   );
-  // }
+  if (sessionData?.user.hasSignedUp) {
+    void router.push((router.query.redirect || "/") as string);
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p>One moment please...</p>
+      </div>
+    );
+  }
 
   return (
     <Layout title="Sign Up!">
-      <h1>Welcome to Design Bridge!</h1>
+      <h1 className="mt-4">Welcome to Design Bridge!</h1>
       <p>We see that you are new around here.</p>
       <p>Tell us a bit more about yourself!</p>
       <p>(You can always change this info later)</p>
@@ -142,13 +142,18 @@ const SignUpPage: NextPage = () => {
             </>
           )}
 
-          <Button
-            type="submit"
-            onClick={() => console.log(errors)}
-            className="mt-[1rem]"
-          >
-            Join Now!
-          </Button>
+          <div className="mt-[1rem] flex gap-2">
+            <Button
+              type="submit"
+              onClick={() => setRole("")}
+              className="text-text-200 "
+            >
+              Go Back
+            </Button>
+            <Button type="submit" onClick={() => console.log(errors)}>
+              Join Now!
+            </Button>
+          </div>
         </form>
       ) : (
         <ChooseRole setValue={setRole} />
