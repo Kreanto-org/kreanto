@@ -9,7 +9,7 @@
     "seed": "NODE_ENV=development prisma db seed",
     "lint": "next lint",
     "start": "next start",
-    "restart": "yarn prisma db push --force-reset && yarn prisma db push && yarn prisma generate && yarn seed"
+    "reset-db": "yarn prisma db push --force-reset && yarn prisma db push && yarn prisma generate && yarn seed"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -28,6 +28,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.2",
+    "slugify": "^1.6.5",
     "superjson": "1.9.1",
     "tsx": "^3.12.3",
     "zod": "^3.20.2"

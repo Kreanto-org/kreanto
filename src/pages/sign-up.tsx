@@ -38,17 +38,14 @@ const SignUpPage: NextPage = () => {
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
     setValue,
   } = useForm<NewUserData>({
     criteriaMode: "all",
   });
-  console.log(watch("age"));
 
   const onSubmit: SubmitHandler<NewUserData> = async (data) => {
     if (!sessionData?.user.id) return;
-    console.log("Hello?");
 
     const signUpData = {
       id: sessionData?.user.id,
@@ -57,7 +54,6 @@ const SignUpPage: NextPage = () => {
     };
 
     if (role === "PRINTER") {
-      console.log(data.colorType);
       await completeSignUp.mutateAsync({
         ...signUpData,
         printer: {
@@ -83,8 +79,6 @@ const SignUpPage: NextPage = () => {
         <p>Loading...</p>
       </div>
     );
-
-  console.log(sessionData?.user.hasSignedUp);
 
   if (sessionData?.user.hasSignedUp) {
     void router.push((router.query.redirect || "/") as string);

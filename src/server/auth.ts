@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import type { GetServerSidePropsContext } from "next";
 import { getServerSession, type NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import { customSlugify } from "~/utils/customSlugify";
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks,
@@ -36,6 +38,40 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
+      profile: async (profile, _tokens) => {
+        const slug = customSlugify(profile.name as string);
+
+        const hasNameCollision = await prisma.user.findUnique({
+          where: { slug },
+        });
+        let count = 2;
+        // check if a person with the slug already exists
+        if (hasNameCollision) {
+          while (true) {
+            if (
+              !(await prisma.user.findUnique({
+                where: { slug: slug + "-" + count.toString() },
+              }))
+            ) {
+              break;
+            }
+            count++;
+          }
+        }
+
+        return {
+          id: profile.sub as string,
+          name: profile.name as string,
+          email: profile.email as string,
+          slug: hasNameCollision ? slug + "-" + count.toString() : slug,
+          age: 0,
+          lastActive: new Date(),
+          avgRespTime: 0,
+          numResponses: 0,
+          hasSignedUp: false,
+          emailVerified: new Date(),
+        };
+      },
     }),
     /**
      * ...add more providers here
