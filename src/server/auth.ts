@@ -15,7 +15,7 @@ import { customSlugify } from "~/utils/customSlugify";
  **/
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session({ session, user }) {
+    async session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
         session.user.age = user.age;
@@ -25,10 +25,13 @@ export const authOptions: NextAuthOptions = {
         session.user.location = user.location;
         session.user.avgRespTime = user.avgRespTime;
         session.user.numResponses = user.numResponses;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        session.user.printerProfile = user.printerProfile;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         session.user.hasSignedUp = user.hasSignedUp;
+
+        const printerProfile = await prisma.printerProfile.findUnique({
+          where: { userId: user.id },
+        });
+        console.log(printerProfile);
+        session.user.printerProfile = printerProfile ?? undefined;
       }
       return session;
     },

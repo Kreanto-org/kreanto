@@ -53,4 +53,12 @@ export const userRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.example.findMany();
   }),
+  findUnique: publicProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.user.findUnique({
+        where: { slug: input.slug },
+        include: { printerProfile: true },
+      });
+    }),
 });

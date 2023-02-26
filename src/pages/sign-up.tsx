@@ -10,11 +10,11 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import useIsMobile from "~/hooks/useIsMobile";
 import Layout from "~/components/shared/layout";
 import type { ColorType, PrintTime } from "@prisma/client";
-import AgeLocation from "~/components/specific/sign-up/age-location";
-import PrintVolumeSection from "~/components/specific/sign-up/print-volume-section";
+import AgeLocation from "~/components/page-specific/sign-up/age-location";
+import PrintVolumeSection from "~/components/page-specific/sign-up/print-volume-section";
 import { useState } from "react";
-import ChooseRole from "~/components/specific/sign-up/choose-role";
-import PrinterInfo from "~/components/specific/sign-up/printer-info";
+import ChooseRole from "~/components/page-specific/sign-up/choose-role";
+import PrinterInfo from "~/components/page-specific/sign-up/printer-info";
 
 export interface NewUserData {
   age: number;
