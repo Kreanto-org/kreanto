@@ -5,11 +5,9 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <h1 className="mt-10 tracking-tight text-white sm:text-[5rem]">
-        Design <span className="text-highlight">Bridge</span>
+        KREANTO
       </h1>
-      <p className="mt-4 text-text-200">
-        Bridging the gap, one design at a time.
-      </p>
+      <p className="mt-4 text-text-200">A new place for creators.</p>
     </Layout>
   );
 };

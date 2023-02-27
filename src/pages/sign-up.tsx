@@ -91,7 +91,7 @@ const SignUpPage: NextPage = () => {
 
   return (
     <Layout title="Sign Up!">
-      <h1 className="mt-4">Welcome to Design Bridge!</h1>
+      <h1 className="mt-4">Welcome to Kreanto!</h1>
       <p>We see that you are new around here.</p>
       <p>Tell us a bit more about yourself!</p>
       <p>(You can always change this info later)</p>
