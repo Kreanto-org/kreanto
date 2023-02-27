@@ -4,11 +4,9 @@ const Footer: React.FC = () => {
   return (
     <div className="mt-6 flex h-[10rem] w-screen items-center justify-between bg-bg-200 px-20 shadow">
       <div className="flex gap-4">
-        <Image src="/logo.svg" alt="" width={45} height={45} />
+        <Image src="/White Logo.png" alt="" width={75} height={10} />
         <div className="flex h-full flex-col justify-between">
-          <h3 className="tracking-tight text-text-100">
-            Design <span className="text-highlight">Bridge</span>
-          </h3>
+          <h1 className="text-[2rem] tracking-tight text-text-100">KREANTO</h1>
           <p className="text-text-200">
             Bridging the gap, one design at a time.
           </p>

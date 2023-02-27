@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="flex h-[50px] w-screen items-center justify-between bg-bg-200 px-20 shadow">
       <Link href="/">
-        <Image src="/logo.svg" alt="" width={20} height={10} />
+        <Image src="/White Logo.png" alt="" width={30} height={10} />
       </Link>
       {mainTabs.map((tab, i) => (
         <Tab key={i} {...tab} />
