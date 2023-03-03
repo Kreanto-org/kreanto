@@ -30,7 +30,6 @@ export const authOptions: NextAuthOptions = {
         const printerProfile = await prisma.printerProfile.findUnique({
           where: { userId: user.id },
         });
-        console.log(printerProfile);
         session.user.printerProfile = printerProfile ?? undefined;
       }
       return session;
