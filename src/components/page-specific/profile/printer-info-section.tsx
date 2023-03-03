@@ -20,7 +20,7 @@ const PrinterInfoSection: React.FC<{ profile: PrinterProfile }> = ({
   profile,
 }) => {
   return (
-    <div className="flex flex-col items-start text-left text-xl text-text-200">
+    <div className="flex flex-col items-start text-left text-xl text-text-100">
       <div className="flex items-center gap-2">
         <GiNestedHexagons />
         <p>{profile.points} points</p>

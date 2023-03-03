@@ -5,7 +5,7 @@ const InfoTooltip: React.FC<
   React.PropsWithChildren<{ learnMore?: string }>
 > = ({ learnMore, children }) => {
   return (
-    <div className="group relative flex">
+    <div className="group relative flex text-text-300">
       <AiOutlineQuestionCircle className="z-0" />
       <div
         className="absolute left-1/2 z-10 mx-auto hidden -translate-x-1/2 translate-y-[21px] border-x-[5px] border-b-[5px] border-x-transparent border-b-gray-800 
