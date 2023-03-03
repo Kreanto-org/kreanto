@@ -10,8 +10,11 @@ export const Header: React.FC<{ title?: string }> = ({ title }) => {
         content={`${title ? title + " | " : ""}Kreanto`}
       />
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://santiagovira.tech" />
-      <meta property="og:description" content="A new place for creators." />
+      <meta property="og:url" content="https://kreanto.vercel.app" />
+      <meta
+        property="og:description"
+        content="Enabling creators, empowering makers."
+      />
     </Head>
   );
 };
