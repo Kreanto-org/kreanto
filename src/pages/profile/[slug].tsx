@@ -12,8 +12,8 @@ const ProfilePage: React.FC = () => {
   const user = userQuery.data;
 
   return (
-    <Layout title={user?.name ?? ""}>
-      <div className="m-4 flex flex-col items-start gap-1 rounded-md bg-bg-200 px-6 pt-2 pb-4">
+    <Layout title={user?.name ?? ""} className="items-start">
+      <div className="mx-4 flex flex-col items-start gap-1  px-6 pt-2 pb-4">
         <div className="flex w-full items-center gap-4">
           <Avatar>
             <AvatarImage src={user?.image ?? undefined} alt="user-pfp" />
@@ -31,7 +31,7 @@ const ProfilePage: React.FC = () => {
         <ResponseInfoSection {...user} />
       </div>
       {user?.printerProfile && (
-        <div className="m-4 rounded-md bg-bg-200 px-6 py-4">
+        <div className="mx-4 px-6 py-4">
           <PrinterInfoSection profile={user.printerProfile} />
         </div>
       )}
