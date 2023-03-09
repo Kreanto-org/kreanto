@@ -2,12 +2,20 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Tab from "./tab";
 import Link from "next/link";
-import { mainTabs } from "./tabs";
 import { useRouter } from "next/router";
 
+export interface ITab {
+  name: string;
+  href: string;
+}
+
 const Navbar: React.FC = () => {
-  const { data: sessionData } = useSession();
+  const { data: sessionData, status } = useSession();
   const router = useRouter();
+  const mainTabs: ITab[] =
+    status === "authenticated"
+      ? [{ name: "My Profile", href: "/profile" }]
+      : [];
 
   return (
     <div className="flex h-[50px] w-screen items-center justify-between bg-bg-200 px-20 shadow">

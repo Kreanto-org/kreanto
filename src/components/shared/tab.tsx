@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { ITab } from "./navbar";
 
-const Tab: React.FC<{ name: string; href: string }> = ({ name, href }) => {
+const Tab: React.FC<ITab> = ({ name, href }) => {
   const router = useRouter();
   const selected = router.pathname === href;
 

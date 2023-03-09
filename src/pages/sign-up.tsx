@@ -83,7 +83,7 @@ const SignUpPage: NextPage = () => {
   if (sessionData?.user.hasSignedUp) {
     void router.push((router.query.redirect || "/") as string);
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen items-center justify-center text-text-100">
         <p>One moment please...</p>
       </div>
     );
