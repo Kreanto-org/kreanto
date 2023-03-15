@@ -70,6 +70,7 @@ const SignUpPage: NextPage = () => {
     const event = new Event("visibilitychange");
     document.dispatchEvent(event);
 
+    console.log(router.query.redirect);
     router.push((router.query.redirect || "/") as string);
   };
 
