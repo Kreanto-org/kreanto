@@ -1,8 +1,8 @@
 import type { PrinterProfile } from "@prisma/client";
 import { BiTimeFive, BiCube } from "react-icons/bi";
 import { MdOutlineColorLens } from "react-icons/md";
-import { GiNestedHexagons } from "react-icons/gi";
 import InfoTooltip from "~/components/ui/info-tooltip";
+import Logo from "~/components/shared/logo";
 
 const printTimeWords = {
   MED: "Medium",
@@ -22,7 +22,7 @@ const PrinterInfoSection: React.FC<{ profile: PrinterProfile }> = ({
   return (
     <div className="flex flex-col items-start text-left text-xl text-text-100">
       <div className="flex items-center gap-2">
-        <GiNestedHexagons />
+        <Logo size="22px" />
         <p>{profile.points} points</p>
         <InfoTooltip>
           This tells you how experienced this printer is.
