@@ -14,7 +14,7 @@ const Layout: React.FC<
 > = ({ title, unAuthMessage, needsAuth = false, className, children }) => {
   const { status } = useSession();
   return (
-    <main className="flex min-h-screen flex-col items-center bg-bg-100 text-text-100">
+    <main className="flex min-h-screen flex-col items-center bg-bg-main text-text-100">
       <Header title={title} />
       <Navbar />
       <div

@@ -11,7 +11,7 @@ const Tab: React.FC<ITab> = ({ name, href }) => {
       <div
         className={`${
           selected ? "text-text-100" : "text-text-200"
-        } flex h-full flex-1 flex-col justify-center`}
+        } hover: flex h-full flex-1 flex-col justify-center hover:text-text-100/80`}
       >
         <Link href={href}>
           <p className="transition hover:-translate-y-0.5">{name}</p>
