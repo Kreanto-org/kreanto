@@ -1,5 +1,4 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import Tab from "./tab";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,18 +16,22 @@ const Navbar: React.FC = () => {
   const router = useRouter();
   const mainTabs: ITab[] =
     status === "authenticated"
-      ? [{ name: "My Profile", href: "/profile" }]
+      ? [
+          { name: "My Profile", href: "/profile" },
+          { name: "Info", href: "/info" },
+          { name: "Lorem", href: "/ipsum-dolor" },
+        ]
       : [];
 
   const [homeHover, setHomeHover] = useState(false);
 
   return (
-    <div className="flex w-screen items-center justify-between py-4 px-20">
+    <div className="flex h-14 w-screen items-center justify-between px-20 pb-1 pt-4">
       <div className="flex flex-1 items-center justify-start">
         <Link
           href="/"
           className={cn(
-            "flex h-[34px] w-[34px] items-center justify-center rounded-full",
+            "flex items-center justify-center rounded-full p-[0.3625rem]",
             router.pathname === "/" ? "bg-black/40" : "bg-black/20"
           )}
           onMouseEnter={() => setHomeHover(true)}
@@ -47,12 +50,24 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
 
-      {mainTabs.map((tab, i) => (
-        <Tab key={i} {...tab} />
-      ))}
-      <div className="flex flex-1 items-center justify-end">
+      <div
+        className={cn(
+          "flex h-full items-center justify-center rounded-full px-4",
+          router.pathname === "/" ? "bg-black/20" : "bg-black/40"
+        )}
+      >
+        {mainTabs.map((tab, i) => (
+          <>
+            <Tab key={i} {...tab} />
+            {i != mainTabs.length - 1 && (
+              <div className="mx-3 h-2/3 w-0 border-l-[1px] border-text-300/40" />
+            )}
+          </>
+        ))}
+      </div>
+      <div className="flex h-full flex-1 items-center justify-end">
         <button
-          className="h-[34px] rounded-full bg-black/20 px-[0.7rem] text-right text-text-200 no-underline transition hover:-translate-y-0.5 hover:text-highlight"
+          className="h-full rounded-full bg-black/20 px-[0.7rem] text-right text-text-200 no-underline transition hover:-translate-y-0.5 hover:bg-black/40 hover:text-highlight"
           onClick={
             sessionData
               ? () => void signOut()
