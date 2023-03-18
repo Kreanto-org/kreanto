@@ -1,6 +1,4 @@
-import { Canvas } from "@react-three/fiber";
 import { type NextPage } from "next";
-import Box from "~/components/box";
 import Layout from "~/components/shared/layout";
 
 const Home: NextPage = () => {
@@ -12,11 +10,6 @@ const Home: NextPage = () => {
       <p className="mt-4 text-text-200">
         Enabling creators, empowering makers.
       </p>
-      <Canvas>
-        <Box />
-        <ambientLight intensity={0.1} />
-        <directionalLight />
-      </Canvas>
     </Layout>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFrame } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useSpring, animated, config } from "@react-spring/three";
 import type { Mesh } from "three";
 
@@ -35,5 +35,13 @@ const Box: React.FC = () => {
     </animated.mesh>
   );
 };
+
+export const BoxCanvas: React.FC = () => (
+  <Canvas>
+    <Box />
+    <ambientLight intensity={0.1} />
+    <directionalLight />
+  </Canvas>
+);
 
 export default Box;
