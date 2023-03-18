@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
       <div
         className={cn(
           "flex h-full items-center justify-center rounded-full px-4",
-          !mainTabs
+          mainTabs.length
             ? router.pathname === "/"
               ? "bg-black/20"
               : "bg-black/40"

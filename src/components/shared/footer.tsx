@@ -1,10 +1,10 @@
-import Image from "next/image";
+import Logo from "./logo";
 
 const Footer: React.FC = () => {
   return (
     <div className="mt-6 flex h-[10rem] w-screen items-center justify-between bg-black/[12%] px-20 shadow">
       <div className="flex gap-4">
-        <Image src="/White Logo.png" alt="" width={75} height={10} />
+        <Logo size="4.5rem" />
         <div className="flex h-full flex-col justify-between">
           <h1 className="text-[2rem] tracking-tight text-text-100">KREANTO</h1>
           <p className="text-text-200">Enabling creators, empowering makers.</p>
