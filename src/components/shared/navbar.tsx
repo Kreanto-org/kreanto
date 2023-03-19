@@ -3,7 +3,7 @@ import Tab from "./tab";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "./logo";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { cn } from "~/utils/cn";
 
 export interface ITab {
@@ -61,12 +61,12 @@ const Navbar: React.FC = () => {
         )}
       >
         {mainTabs.map((tab, i) => (
-          <>
-            <Tab key={i} {...tab} />
+          <Fragment key={i}>
+            <Tab {...tab} />
             {i != mainTabs.length - 1 && (
               <div className="mx-3 h-2/3 w-0 border-l-[1px] border-text-300/40" />
             )}
-          </>
+          </Fragment>
         ))}
       </div>
       <div className="flex h-full flex-1 items-center justify-end">

@@ -1,28 +1,14 @@
 import { useRouter } from "next/router";
 import { PortableTextLayout } from "~/components/page-specific/info/portable-text";
 import Layout from "~/components/shared/layout";
-import { type InfoPageType, cms } from "~/server/cms";
-import * as Icons from "react-icons/fa";
-import type { IconType } from "react-icons";
-import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import { type InfoPageType, cms, DynamicIcon } from "~/server/cms";
 
-const DynamicFontAwesomeIcon: (name: string | undefined) => IconType = (
-  name
-) => {
-  if (name && Object.keys(Icons).includes(name)) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return Icons[name];
-  }
-};
+import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 
 const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
   const router = useRouter();
   const slug = router.query.slug?.toString() ?? "";
   const page = pages.filter((page) => page.slug === slug)[0];
-  const Icon = DynamicFontAwesomeIcon(page?.icon);
-
-  console.log(page?.body);
 
   return (
     <Layout className="items-start justify-start p-6">
@@ -33,8 +19,12 @@ const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
         <HiOutlineArrowUturnLeft />
         Information
       </a>
-      <Icon size="5.5rem" className="my-4 ml-6 text-highlight" />
-      <h1 className="w-full text-left text-[4rem] uppercase">{page?.title}</h1>
+      <DynamicIcon
+        name={page?.icon}
+        size="5.5rem"
+        className="my-4 ml-6 text-highlight"
+      />
+      <h1 className="w-full text-left text-[4rem]">{page?.title}</h1>
 
       <div className="ml-2 max-w-[40rem]">
         <PortableTextLayout text={page?.body ?? []} />
