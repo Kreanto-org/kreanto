@@ -17,6 +17,8 @@ export const PortableTextLayout: React.FC<{
         ),
         block: {
           h2: ({ children }) => <h2 className="mt-6">{children}</h2>,
+
+          normal: ({ children }) => <p className="text-left">{children}</p>,
         },
         marks: {
           code: ({ children }) => {

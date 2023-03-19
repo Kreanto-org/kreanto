@@ -1,4 +1,5 @@
 import { createClient } from "next-sanity";
+import { IconType } from "react-icons";
 
 export const cms = createClient({
   projectId: "6wrn8bhl",
@@ -11,4 +12,5 @@ export interface InfoPageType {
   title: string;
   slug: string;
   body: never[];
+  icon: string;
 }
