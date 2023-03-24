@@ -3,8 +3,9 @@ import Tab from "./tab";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "./logo";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { cn } from "~/utils/cn";
+import { useTabs } from "./tabs";
 
 export interface ITab {
   name: string;
@@ -12,18 +13,9 @@ export interface ITab {
 }
 
 const Navbar: React.FC = () => {
-  const { data: sessionData, status } = useSession();
+  const { data: sessionData } = useSession();
   const router = useRouter();
-  const mainTabs: ITab[] =
-    status === "authenticated"
-      ? [
-          { name: "My Profile", href: "/profile" },
-          { name: "Info", href: "/info" },
-          { name: "Lorem", href: "/ipsum-dolor" },
-        ]
-      : [];
-
-  const [homeHover, setHomeHover] = useState(false);
+  const mainTabs = useTabs();
 
   return (
     <div className="flex h-14 w-screen items-center justify-between px-20 pb-1 pt-4">
@@ -31,22 +23,13 @@ const Navbar: React.FC = () => {
         <Link
           href="/"
           className={cn(
-            "flex items-center justify-center rounded-full p-[0.3625rem] transition hover:-translate-y-0.5",
-            router.pathname === "/" ? "bg-black/40" : "bg-black/20"
+            "flex items-center justify-center rounded-full p-[0.3625rem] transition hover:-translate-y-0.5 hover:fill-white/80",
+            router.pathname === "/"
+              ? "bg-black/40 fill-white"
+              : "bg-black/20 fill-[#9f9fa2]"
           )}
-          onMouseEnter={() => setHomeHover(true)}
-          onMouseLeave={() => setHomeHover(false)}
         >
-          <Logo
-            size="1.4rem"
-            color={
-              homeHover
-                ? "rgb(255 255 255 / 0.8)"
-                : router.pathname === "/"
-                ? "white"
-                : "#9f9fa2"
-            }
-          />
+          <Logo size="1.4rem" inherit />
         </Link>
       </div>
 

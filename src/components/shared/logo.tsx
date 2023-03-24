@@ -1,11 +1,12 @@
-const Logo: React.FC<{ size?: string; color?: string }> = ({
+const Logo: React.FC<{ size?: string; color?: string; inherit?: boolean }> = ({
   size = "1rem",
   color = "white",
+  inherit = false,
 }) => {
+  console.log(inherit);
   return (
     <svg
-      stroke={color}
-      fill={color}
+      fill={inherit ? "inherit" : color}
       strokeWidth="0"
       viewBox="0 0 512 512"
       height={size}

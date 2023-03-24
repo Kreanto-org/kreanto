@@ -1,6 +1,18 @@
+import { useSession } from "next-auth/react";
+
 interface ITab {
   name: string;
   href: string;
 }
 
-export const mainTabs: ITab[] = [{ name: "My Profile", href: "/profile" }];
+export const useTabs: () => ITab[] = () => {
+  const { status } = useSession();
+
+  return status === "authenticated"
+    ? [
+        { name: "My Profile", href: "/profile" },
+        { name: "Info", href: "/info" },
+        { name: "Lorem", href: "/ipsum-dolor" },
+      ]
+    : [];
+};

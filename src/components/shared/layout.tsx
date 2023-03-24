@@ -3,6 +3,8 @@ import Navbar from "./navbar";
 import Footer from "./footer";
 import { cn } from "~/utils/cn";
 import { useSession } from "next-auth/react";
+import useWindowSize from "~/utils/useWindowSize";
+import MobileNavbar from "./mobile-navbar";
 
 const Layout: React.FC<
   React.PropsWithChildren<{
@@ -13,10 +15,11 @@ const Layout: React.FC<
   }>
 > = ({ title, unAuthMessage, needsAuth = false, className, children }) => {
   const { status } = useSession();
+  const { isMobile } = useWindowSize();
   return (
     <main className="flex min-h-screen flex-col items-center bg-bg-main text-text-100">
       <Header title={title} />
-      <Navbar />
+      {isMobile ? <MobileNavbar /> : <Navbar />}
       <div
         className={cn(
           "flex h-full w-full flex-1 flex-col items-center justify-center",
