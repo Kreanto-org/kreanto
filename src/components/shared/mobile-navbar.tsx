@@ -11,7 +11,7 @@ const MobileNavbar: React.FC = () => {
   const tabs = useTabs();
 
   return (
-    <div className="flex h-14 w-screen items-center justify-between px-8 pb-1 pt-4">
+    <div className="flex h-14 w-screen items-center justify-between bg-bg-200 px-8 py-2 pb-1">
       <div className="flex flex-1 items-center justify-start">
         <Link
           href="/"
@@ -30,7 +30,7 @@ const MobileNavbar: React.FC = () => {
           </PopoverTrigger>
         </div>
 
-        <PopoverContent className="mt-2 flex w-screen flex-col gap-5">
+        <PopoverContent className="mt-4 flex w-screen flex-col gap-5 border-t-[1px] border-text-200/40">
           {tabs.map((t, i) => (
             <a
               href={t.href}

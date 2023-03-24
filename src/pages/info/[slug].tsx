@@ -24,9 +24,11 @@ const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
         size="5.5rem"
         className="my-4 ml-6 text-highlight"
       />
-      <h1 className="w-full text-left text-[4rem]">{page?.title}</h1>
+      <h1 className="w-full break-words text-left text-3xl md:text-[4rem]">
+        {page?.title}
+      </h1>
 
-      <div className="ml-2 max-w-[40rem]">
+      <div className="mt-3 max-w-[90vw] break-words md:mt-0 md:ml-2 md:max-w-[40rem]">
         <PortableTextLayout text={page?.body ?? []} />
       </div>
     </Layout>
