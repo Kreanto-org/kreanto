@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
         <Link
           href="/"
           className={cn(
-            "flex items-center justify-center rounded-full p-[0.3625rem]",
+            "flex items-center justify-center rounded-full p-[0.3625rem] transition hover:-translate-y-0.5",
             router.pathname === "/" ? "bg-black/40" : "bg-black/20"
           )}
           onMouseEnter={() => setHomeHover(true)}
