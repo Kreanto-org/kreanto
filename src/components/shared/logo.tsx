@@ -3,7 +3,6 @@ const Logo: React.FC<{ size?: string; color?: string; inherit?: boolean }> = ({
   color = "white",
   inherit = false,
 }) => {
-  console.log(inherit);
   return (
     <svg
       fill={inherit ? "inherit" : color}

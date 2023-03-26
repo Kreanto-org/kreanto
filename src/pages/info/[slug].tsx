@@ -4,33 +4,53 @@ import Layout from "~/components/shared/layout";
 import { type InfoPageType, cms, DynamicIcon } from "~/server/cms";
 
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
+import useWindowSize from "~/utils/useWindowSize";
 
 const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
   const router = useRouter();
   const slug = router.query.slug?.toString() ?? "";
   const page = pages.filter((page) => page.slug === slug)[0];
+  const { isMobile } = useWindowSize();
 
   return (
-    <Layout className="items-start justify-start p-6">
-      <a
-        href="/info"
-        className="flex items-center gap-2 border-b-[1px] border-transparent text-text-100/70 transition-all hover:border-text-100/70"
-      >
-        <HiOutlineArrowUturnLeft />
-        Information
-      </a>
-      <DynamicIcon
-        name={page?.icon}
-        size="5.5rem"
-        className="my-4 ml-6 text-highlight"
-      />
-      <h1 className="w-full break-words text-left text-3xl md:text-[4rem]">
-        {page?.title}
-      </h1>
+    <Layout className="flex-row items-start p-6 pt-12">
+      <div className="flex h-full w-full flex-[4] flex-col items-start justify-start">
+        <DynamicIcon
+          name={page?.icon}
+          size="5.5rem"
+          className="mb-4 ml-6 text-highlight"
+        />
+        <h1 className="w-full break-words text-left text-3xl md:my-5 md:text-[4.75rem]">
+          {page?.title}
+        </h1>
 
-      <div className="mt-3 max-w-[90vw] break-words md:mt-0 md:ml-2 md:max-w-[40rem]">
-        <PortableTextLayout text={page?.body ?? []} />
+        <div className="mt-3 max-w-[90vw] break-words font-normal md:mt-6 md:ml-2 md:max-w-[60rem]">
+          <PortableTextLayout text={page?.body ?? []} />
+        </div>
       </div>
+      {!isMobile && (
+        <div className="flex h-full w-full flex-1 flex-col items-end justify-start p-4 pr-10">
+          <a
+            href="/info"
+            className="flex items-center gap-2 border-b-[1px] border-transparent text-text-100/70 transition-all hover:border-text-100/70"
+          >
+            <HiOutlineArrowUturnLeft />
+            Information
+          </a>
+          <hr className="my-2  w-full border-text-100/20" />
+          {pages
+            .filter((page) => page.slug !== slug)
+            .map((page, i) => (
+              <a
+                href={`/info/${page.slug}`}
+                key={i}
+                className="mb-2 border-b-[1px] border-transparent text-text-100/70 transition-all hover:border-text-100/70"
+              >
+                {page.title}
+              </a>
+            ))}
+        </div>
+      )}
     </Layout>
   );
 };
@@ -53,7 +73,6 @@ export async function getStaticPaths() {
   const pages: InfoPageType[] = await cms.fetch(
     `*[_type == "post"]{title, 'slug': slug.current, body}`
   );
-  console.log(pages);
 
   const paths = pages.map((page) => ({
     params: { slug: page.slug },

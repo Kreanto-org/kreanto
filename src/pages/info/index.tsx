@@ -3,10 +3,9 @@ import Layout from "~/components/shared/layout";
 import { type InfoPageType, cms } from "~/server/cms";
 
 const Index: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
-  console.log(pages);
   return (
     <Layout title="Learn">
-      <div className="grid w-full flex-1 grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3">
+      <div className="grid w-full max-w-[80rem] flex-1 grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 md:p-12">
         {pages.map((p, i) => (
           <Preview title={p.title} icon={p.icon} slug={p.slug} key={i} />
         ))}
