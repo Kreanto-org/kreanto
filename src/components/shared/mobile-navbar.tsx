@@ -5,10 +5,12 @@ import { useRouter } from "next/router";
 import Logo from "./logo";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useTabs } from "./tabs";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const MobileNavbar: React.FC = () => {
   const router = useRouter();
   const tabs = useTabs();
+  const { data: sessionData } = useSession();
 
   return (
     <div className="flex h-14 w-screen items-center justify-between bg-bg-200 px-8 py-2 pb-1">
@@ -42,6 +44,25 @@ const MobileNavbar: React.FC = () => {
               {t.name}
             </Link>
           ))}
+          {sessionData && (
+            <hr className="-ml-4 w-[calc(100%+2rem)] border-text-200/40" />
+          )}
+          <Link
+            href="/"
+            className="text-text-200"
+            onClick={
+              sessionData
+                ? () => void signOut()
+                : () =>
+                    void signIn("google", {
+                      callbackUrl: `/sign-up?redirect=${encodeURIComponent(
+                        router.asPath
+                      )}`,
+                    })
+            }
+          >
+            {sessionData ? "Sign out" : "Sign in"}
+          </Link>
         </PopoverContent>
       </Popover>
     </div>

@@ -38,7 +38,7 @@ const ColorSection: React.FC<{
   const colors = colorsQuery.data;
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
       {colors?.map((color, i) => (
         <Swatch color={color} setSelected={setColorChoices} key={i} />
       ))}

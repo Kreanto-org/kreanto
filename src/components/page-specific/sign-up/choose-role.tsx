@@ -8,7 +8,7 @@ const ChooseRole: React.FC<{
   const [role, setRole] = useState<"" | "DESIGNER" | "PRINTER">("");
   return (
     <div className="flex h-full w-full flex-col items-center justify-center">
-      <div className="my-10 flex w-2/3 items-center justify-evenly">
+      <div className="my-10 flex w-2/3 flex-col items-center justify-evenly gap-4 md:flex-row ">
         <RoleButton
           name="Designer"
           description="For those who may not have access to a 3d printer but would like to participate and fuel their stem experiences."

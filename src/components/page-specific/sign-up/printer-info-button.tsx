@@ -14,7 +14,7 @@ const PrinterInfoButton: React.FC<Props> = ({
   return (
     <RadioButton {...rest} className="h-full max-w-[15rem]">
       <h5 className="text-center">{title}</h5>
-      <p className="text-center text-[1rem]">{description}</p>
+      <p className="text-center text-[0.8rem] md:text-[1rem]">{description}</p>
     </RadioButton>
   );
 };
