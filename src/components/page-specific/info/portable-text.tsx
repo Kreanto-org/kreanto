@@ -26,6 +26,7 @@ export const PortableTextLayout: React.FC<{
           code: ({ children }) => {
             return <code className="text-inherit">{children}</code>;
           },
+
           link: ({ text, value }) => {
             return (
               <Link
