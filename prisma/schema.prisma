@@ -47,6 +47,14 @@ model Session {
     @@index([userId])
 }
 
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
+
 model User {
     id              String    @id @default(cuid())
     slug            String    @unique
@@ -64,6 +72,7 @@ model User {
     numResponses    Int @default(0)
     printerProfile  PrinterProfile?
     hasSignedUp     Boolean @default(false)
+    chats           Chat[]
 }
 
 model PrinterProfile {
@@ -71,6 +80,7 @@ model PrinterProfile {
   user          User? @relation(fields: [userId], references: [id])
   userId        String @unique
 	points        Int @default(0)
+  requests      PrintRequest[]
 
   printTime     PrintTime @default(LOW)
   colorType     ColorType @default(SINGLE)
@@ -78,6 +88,17 @@ model PrinterProfile {
   length        Int @default(150)
   width         Int @default(150)
   height        Int @default(150)
+}
+
+model PrintRequest{
+  id            String @id @default(cuid())
+  printer       PrinterProfile @relation(fields: [printerId], references: [userId])
+  printerId     String
+
+  link          String
+  colorChoice   String
+
+  @@index([printerId])
 }
 
 model Color {
@@ -100,12 +121,23 @@ model ColorsOnPrinterProfile {
   @@index([colorName])
 }
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+model Chat{
+  id          String @id @default(cuid())
+  members     User[]
+  messages    Message[]
+}
 
-    @@unique([identifier, token])
+model Message{
+  id          String @id @default(cuid())
+  text        String
+  sentOn      DateTime @default(now())
+  userId      String
+
+  chat        Chat @relation(fields:[chatId], references: [id])
+  chatId      String
+
+
+  @@index([chatId])
 }
 
 enum ColorType {
