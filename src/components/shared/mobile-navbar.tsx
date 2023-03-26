@@ -32,7 +32,7 @@ const MobileNavbar: React.FC = () => {
 
         <PopoverContent className="mt-4 flex w-screen flex-col gap-5 border-t-[1px] border-text-200/40">
           {tabs.map((t, i) => (
-            <a
+            <Link
               href={t.href}
               key={i}
               className={
@@ -40,7 +40,7 @@ const MobileNavbar: React.FC = () => {
               }
             >
               {t.name}
-            </a>
+            </Link>
           ))}
         </PopoverContent>
       </Popover>

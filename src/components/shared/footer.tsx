@@ -1,5 +1,6 @@
 import useWindowSize from "~/utils/useWindowSize";
 import Logo from "./logo";
+import Link from "next/link";
 
 const Footer: React.FC = () => {
   const { isMobile } = useWindowSize();
@@ -20,14 +21,14 @@ const Footer: React.FC = () => {
       <div className="flex flex-col justify-between align-bottom">
         <p className="text-text-200">
           Created with love by{" "}
-          <a
+          <Link
             href="https://santiagovira.tech"
             target="_blank"
             rel="noreferrer"
             className="text-highlight underline"
           >
             Santiago Vira
-          </a>
+          </Link>
         </p>
       </div>
     </div>

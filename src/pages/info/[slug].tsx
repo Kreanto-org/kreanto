@@ -5,6 +5,7 @@ import { type InfoPageType, cms, DynamicIcon } from "~/server/cms";
 
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 import useWindowSize from "~/utils/useWindowSize";
+import Link from "next/link";
 
 const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
   const router = useRouter();
@@ -30,24 +31,24 @@ const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
       </div>
       {!isMobile && (
         <div className="flex h-full w-full flex-1 flex-col items-end justify-start p-4 pr-10">
-          <a
+          <Link
             href="/info"
             className="flex items-center gap-2 border-b-[1px] border-transparent text-text-100/70 transition-all hover:border-text-100/70"
           >
             <HiOutlineArrowUturnLeft />
             Information
-          </a>
+          </Link>
           <hr className="my-2  w-full border-text-100/20" />
           {pages
             .filter((page) => page.slug !== slug)
             .map((page, i) => (
-              <a
+              <Link
                 href={`/info/${page.slug}`}
                 key={i}
                 className="mb-2 border-b-[1px] border-transparent text-text-100/70 transition-all hover:border-text-100/70"
               >
                 {page.title}
-              </a>
+              </Link>
             ))}
         </div>
       )}

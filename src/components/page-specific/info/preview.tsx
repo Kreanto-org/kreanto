@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DynamicIcon } from "~/server/cms";
 
 const Preview: React.FC<{ title: string; slug: string; icon: string }> = ({
@@ -6,7 +7,7 @@ const Preview: React.FC<{ title: string; slug: string; icon: string }> = ({
   icon,
 }) => {
   return (
-    <a href={`/info/${slug}`}>
+    <Link href={`/info/${slug}`}>
       <div className="group flex h-96 w-full flex-col items-center rounded-3xl bg-bg-200/60 hover:bg-bg-200/80 active:bg-bg-200">
         <DynamicIcon
           name={icon}
@@ -17,7 +18,7 @@ const Preview: React.FC<{ title: string; slug: string; icon: string }> = ({
           {title}
         </h1>
       </div>
-    </a>
+    </Link>
   );
 };
 
