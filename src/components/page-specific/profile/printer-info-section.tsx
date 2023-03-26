@@ -24,20 +24,20 @@ const PrinterInfoSection: React.FC<{ profile: PrinterProfile }> = ({
       <div className="flex items-center gap-2">
         <Logo size="22px" />
         <p>{profile.points} points</p>
-        <InfoTooltip>
+        <InfoTooltip learnMore="/info/printer-points">
           This tells you how experienced this printer is.
         </InfoTooltip>
       </div>
       <div className="flex items-center gap-2">
         <BiTimeFive /> <p>{printTimeWords[profile.printTime]} availability</p>
-        <InfoTooltip>
+        <InfoTooltip learnMore="/info/printer-availability">
           This tells you how available this person is to print something.
         </InfoTooltip>
       </div>
       <div className="flex items-center gap-2">
         <MdOutlineColorLens />{" "}
         <p className="capitalize">{colorTypeWords[profile.colorType]} color</p>
-        <InfoTooltip learnMore="/info/colors">
+        <InfoTooltip learnMore="/info/printer-colors">
           This tells you how many colors this person can use in a single print.
         </InfoTooltip>
       </div>
@@ -46,7 +46,7 @@ const PrinterInfoSection: React.FC<{ profile: PrinterProfile }> = ({
         <p>
           {profile.length}mm x {profile.width}mm x {profile.height}mm
         </p>
-        <InfoTooltip>
+        <InfoTooltip learnMore="/info/print-volume">
           These are the dimensions of the 3d printer this person uses, telling
           you how big they can print!
         </InfoTooltip>
