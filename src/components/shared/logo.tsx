@@ -1,11 +1,18 @@
-const Logo: React.FC<{ size?: string; color?: string; inherit?: boolean }> = ({
+const Logo: React.FC<{
+  size?: string;
+  color?: string;
+  inherit?: boolean;
+  highlight?: boolean;
+}> = ({
   size = "1rem",
   color = "white",
   inherit = false,
+  highlight = false,
 }) => {
   return (
     <svg
       fill={inherit ? "inherit" : color}
+      className={!inherit && highlight ? "fill-highlight" : ""}
       strokeWidth="0"
       viewBox="0 0 512 512"
       height={size}

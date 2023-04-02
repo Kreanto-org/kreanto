@@ -16,8 +16,17 @@ const PrinterCard: React.FC<{
   size: number;
 }> = ({ name, image, points, availability, color, size }) => {
   points = 2000;
+
+  // I'm sorry for this
+  const names = name?.split(" ");
+  const nameStr =
+    names && names[0]
+      ? names[0] +
+        (names.length - 1 > 0 ? " " + (names[1] ?? " ")[0] + "." : "")
+      : name;
+
   return (
-    <div className="flex items-center gap-3 rounded-lg bg-bg-200 p-4">
+    <div className="flex w-80 items-center gap-3 rounded-lg bg-bg-200 p-4">
       <Image
         src={image ?? ""}
         alt="pfp"
@@ -25,12 +34,14 @@ const PrinterCard: React.FC<{
         height={60}
         className="rounded-full"
       />
-      <div className="flex flex-col items-start justify-center">
-        <h4>{name}</h4>
-        <div className="flex w-full items-center justify-between">
+      <div className="flex w-full max-w-[calc(100%-60px)] flex-col items-start justify-center">
+        <h5 className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap">
+          {nameStr}
+        </h5>
+        <div className="flex w-full items-center justify-between gap-4">
           <div className="flex w-[4.5rem] items-center">
-            <Logo size="1rem" />
-            <p className="ml-[2px] font-light">
+            <Logo highlight />
+            <p className="ml-[2px]  font-light">
               {points && points >= 1000 ? "1000+" : points}
             </p>
           </div>
