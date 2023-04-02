@@ -12,6 +12,7 @@ export const useTabs: () => ITab[] = () => {
     ? [
         { name: "My Profile", href: "/profile" },
         { name: "Info", href: "/info" },
+        { name: "Printers", href: "/printers" },
       ]
     : [{ name: "Info", href: "/info" }];
 };

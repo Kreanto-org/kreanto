@@ -11,7 +11,7 @@ const ProfilePage: React.FC = () => {
   const user = userQuery.data;
 
   return (
-    <Layout title={user?.name ?? ""} className="items-start">
+    <Layout needsAuth title={user?.name ?? ""} className="items-start">
       <div className="mx-2 flex flex-col items-start gap-1  px-6 pt-2 pb-4">
         <h1 className="w-full text-left">{user?.name}</h1>
 

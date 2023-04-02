@@ -1,8 +1,4 @@
-import {
-  createTRPCRouter,
-  publicProcedure,
-  // protectedProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const colorRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
