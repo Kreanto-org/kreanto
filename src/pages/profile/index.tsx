@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import PrinterInfoSection from "~/components/page-specific/profile/printer-info-section";
 import ResponseInfoSection from "~/components/page-specific/profile/response-info-section";
 import Layout from "~/components/shared/layout";
@@ -23,9 +24,9 @@ const Profile: React.FC = () => {
           <PrinterInfoSection profile={sessionData?.user.printerProfile} />
         </div>
       )}
-      <a className="w-full text-center underline" href="/messages">
+      <Link className="w-full text-center underline" href="/messages">
         Messages
-      </a>
+      </Link>
     </Layout>
   );
 };

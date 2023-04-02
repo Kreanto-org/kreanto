@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
-      profile: async (profile, _tokens) => {
+      profile: async (profile) => {
         const slug = customSlugify(profile.name as string);
         console.log(profile);
         console.log("FUCK");
