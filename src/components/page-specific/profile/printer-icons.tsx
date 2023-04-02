@@ -1,5 +1,5 @@
 import type { ColorType, PrintTime as PrintTimeType } from "@prisma/client";
-import { BiTimeFive } from "react-icons/bi";
+import { BiCube, BiTimeFive } from "react-icons/bi";
 import { MdOutlineColorLens } from "react-icons/md";
 
 export const PrintTimeIcon: React.FC<{ time?: PrintTimeType }> = ({ time }) => (
@@ -22,7 +22,7 @@ export const PrintVolumeIcon: React.FC<{ l: number; w?: number; h?: number }> = 
 }) => {
   const size = Math.min(l, w, h);
   return (
-    <BiTimeFive
+    <BiCube
       size={"1rem"}
       fill={size > 250 ? "green" : size > 150 ? "yellow" : "red"}
     />

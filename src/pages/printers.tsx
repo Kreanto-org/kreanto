@@ -8,9 +8,10 @@ const Printers: React.FC = () => {
   console.log(printers);
   return (
     <Layout>
-      {printers?.map(({ name, image, printerProfile: profile }, i) => (
+      {printers?.map(({ name, slug, image, printerProfile: profile }, i) => (
         <PrinterCard
           name={name}
+          slug={slug}
           image={image}
           points={profile?.points}
           availability={profile?.printTime}
