@@ -61,4 +61,10 @@ export const userRouter = createTRPCRouter({
         include: { printerProfile: true },
       });
     }),
+  getPrinters: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.user.findMany({
+      where: { NOT: [{ printerProfile: null }] },
+      include: { printerProfile: true },
+    });
+  }),
 });
