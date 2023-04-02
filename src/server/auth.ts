@@ -42,6 +42,8 @@ export const authOptions: NextAuthOptions = {
       clientSecret: env.GOOGLE_CLIENT_SECRET,
       profile: async (profile, _tokens) => {
         const slug = customSlugify(profile.name as string);
+        console.log(profile);
+        console.log("FUCK");
 
         const hasNameCollision = await prisma.user.findUnique({
           where: { slug },
@@ -65,6 +67,7 @@ export const authOptions: NextAuthOptions = {
           id: profile.sub as string,
           name: profile.name as string,
           email: profile.email as string,
+          image: profile.picture as string,
           slug: hasNameCollision ? slug + "-" + count.toString() : slug,
           age: 0,
           lastActive: new Date(),
