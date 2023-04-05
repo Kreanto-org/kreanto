@@ -9,7 +9,7 @@ module.exports = {
           200: "#282828",
           300: "#25272b",
         },
-        highlight: "#f6932d",
+        highlight: "#937dff",
         text: {
           100: "#ffffff",
           200: "#9f9fa2",
