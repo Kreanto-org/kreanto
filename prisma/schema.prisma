@@ -80,7 +80,8 @@ model PrinterProfile {
   user          User? @relation(fields: [userId], references: [id])
   userId        String @unique
 	points        Int @default(0)
-  requests      PrintRequest[]
+  messageRequests    Chat[]
+  printRequests      PrintRequest[]
 
   printTime     PrintTime @default(LOW)
   colorType     ColorType @default(SINGLE)
@@ -125,6 +126,11 @@ model Chat{
   id          String @id @default(cuid())
   members     User[]
   messages    Message[]
+
+  // Used for message requests to printers
+  printer     PrinterProfile? @relation(fields: [printer_id], references: [userId])
+  printer_id  String?
+  @@index([printer_id])
 }
 
 model Message{

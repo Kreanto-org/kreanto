@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import PrinterInfoSection from "~/components/page-specific/profile/printer-info-section";
 import ResponseInfoSection from "~/components/page-specific/profile/response-info-section";
 import Layout from "~/components/shared/layout";
+import Button from "~/components/ui/button";
 import { api } from "~/utils/api";
 
 const ProfilePage: React.FC = () => {
@@ -9,6 +10,8 @@ const ProfilePage: React.FC = () => {
   const slug = router.query.slug?.toString() ?? "";
   const userQuery = api.user.findUnique.useQuery({ slug });
   const user = userQuery.data;
+
+  const messageMut = api.chat.create.useMutation();
 
   return (
     <Layout needsAuth title={user?.name ?? ""} className="items-start">
@@ -22,6 +25,11 @@ const ProfilePage: React.FC = () => {
           <PrinterInfoSection profile={user?.printerProfile} />
         </div>
       )}
+      <Button
+        onClick={() => messageMut.mutateAsync({ recipientId: user?.id ?? "" })}
+      >
+        Message
+      </Button>
     </Layout>
   );
 };

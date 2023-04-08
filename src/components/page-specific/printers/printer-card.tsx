@@ -42,7 +42,7 @@ const PrinterCard: React.FC<{
           <div className="flex w-full items-center justify-between gap-4">
             <div className="flex w-[4.5rem] items-center">
               <Logo highlight />
-              <p className="ml-[2px]  font-light">
+              <p className="ml-[4px]  font-light">
                 {points && points >= 1000 ? "1000+" : points}
               </p>
             </div>
