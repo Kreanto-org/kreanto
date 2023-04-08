@@ -20,6 +20,10 @@ const RequestCard: React.FC<{ req: Chat & { members: User[] } }> = ({
   const image = req.members[0]?.image;
   const ctx = api.useContext();
 
+  const joinMut = api.chat.printerJoin.useMutation({
+    onSuccess: async () => await ctx.invalidate(),
+  });
+
   return (
     <AlertDialog>
       <AlertDialogTrigger className="transition-all hover:-translate-y-[3px] hover:underline">
@@ -43,9 +47,9 @@ const RequestCard: React.FC<{ req: Chat & { members: User[] } }> = ({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            onClick={async () => {
-              await ctx.invalidate();
-            }}
+            onClick={async () =>
+              joinMut.mutateAsync({ creator_id: req.members[0]?.id ?? "" })
+            }
           >
             Accept
           </AlertDialogAction>

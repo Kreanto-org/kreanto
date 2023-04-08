@@ -1,5 +1,40 @@
+import type { PrismaClient } from "@prisma/client";
+import type { User } from "next-auth";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+
+const checkRequested = async (
+  prisma: PrismaClient,
+  user: User,
+  recipientId: string
+) => {
+  if (user.printerProfile) return false; // Printers can't make messages
+
+  const chat_exists = await prisma.chat.findFirst({
+    where: {
+      printer_id: recipientId,
+      members: { some: { id: user.id } },
+    },
+    select: { members: true },
+  });
+
+  return !!chat_exists && chat_exists.members.length === 1;
+};
+
+// Check if a chat exists with both people in it
+const checkConnected = async (prisma: PrismaClient, user: User, id: string) => {
+  if (user.printerProfile) return false; // Printers can't make messages
+
+  const chat_exists = await prisma.chat.findFirst({
+    where: {
+      printer_id: undefined,
+      members: { some: { AND: [{ id: user.id }, { id: id }] } },
+    },
+    select: { members: true },
+  });
+
+  return !!chat_exists;
+};
 
 export const chatRouter = createTRPCRouter({
   findUnique: protectedProcedure
@@ -28,17 +63,11 @@ export const chatRouter = createTRPCRouter({
   checkRequested: protectedProcedure
     .input(z.object({ recipientId: z.string() }))
     .query(async ({ ctx, input }) => {
-      if (ctx.session.user.printerProfile) return false; // Printers can't make messages
-
-      const chat_exists = await ctx.prisma.chat.findFirst({
-        where: {
-          printer_id: input.recipientId,
-          members: { some: { id: ctx.session.user.id } },
-        },
-        select: { members: true },
-      });
-
-      return !!chat_exists && chat_exists.members.length === 1;
+      return await checkRequested(
+        ctx.prisma,
+        ctx.session.user,
+        input.recipientId
+      );
     }),
 
   create: protectedProcedure
@@ -47,16 +76,21 @@ export const chatRouter = createTRPCRouter({
       if (ctx.session.user.printerProfile) return; // Printers can't make messages
       console.log("not printer");
 
-      const chat_exists = await ctx.prisma.chat.findFirst({
-        where: {
-          printer_id: input.recipientId,
-          members: { some: { id: ctx.session.user.id } },
-        },
-      });
-      console.log("fuck");
-      console.log(chat_exists);
+      const requested = await checkRequested(
+        ctx.prisma,
+        ctx.session.user,
+        input.recipientId
+      );
 
-      if (chat_exists) return;
+      const connected = await checkConnected(
+        ctx.prisma,
+        ctx.session.user,
+        input.recipientId
+      );
+
+      console.log("shit", connected);
+      if (requested || connected) return;
+
       console.log("doesnt already exist");
 
       const chat = await ctx.prisma.chat.create({

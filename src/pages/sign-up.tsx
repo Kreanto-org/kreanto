@@ -67,8 +67,7 @@ const SignUpPage: NextPage = () => {
       });
     } else await completeSignUp.mutateAsync(signUpData);
 
-    const event = new Event("visibilitychange");
-    document.dispatchEvent(event);
+    document.dispatchEvent(new Event("visibilitychange"));
 
     console.log(router.query.redirect);
     router.push((router.query.redirect || "/") as string);

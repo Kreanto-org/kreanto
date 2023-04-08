@@ -13,8 +13,13 @@ const ProfilePage: React.FC = () => {
   const slug = router.query.slug?.toString() ?? "";
   const userQuery = api.user.findUnique.useQuery({ slug });
   const user = userQuery.data;
+  const ctx = api.useContext();
 
-  const messageMut = api.chat.create.useMutation();
+  const messageMut = api.chat.create.useMutation({
+    onSuccess: async () => {
+      await ctx.invalidate();
+    },
+  });
   const requestedQuery = api.chat.checkRequested.useQuery({
     recipientId: user?.id ?? "",
   });
