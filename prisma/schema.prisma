@@ -128,9 +128,12 @@ model Chat{
   messages    Message[]
 
   // Used for message requests to printers
+  creator_id  String
   printer     PrinterProfile? @relation(fields: [printer_id], references: [userId])
   printer_id  String?
+
   @@index([printer_id])
+  @@unique([creator_id, printer_id])
 }
 
 model Message{

@@ -55,12 +55,37 @@ export const chatRouter = createTRPCRouter({
       if (chat_exists) return;
 
       const chat = await ctx.prisma.chat.create({
-        data: { members: { connect: [{ id: ctx.session.user.id }] } },
+        data: {
+          members: { connect: [{ id: ctx.session.user.id }] },
+          creator_id: ctx.session.user.id,
+        },
       });
 
       return await ctx.prisma.printerProfile.update({
         where: { userId: input.recipientId },
         data: { messageRequests: { connect: [{ id: chat.id }] } },
+      });
+    }),
+
+  printerJoin: protectedProcedure
+    .input(z.object({ creator_id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      return await ctx.prisma.chat.update({
+        where: {
+          creator_id_printer_id: {
+            creator_id: input.creator_id,
+            printer_id: ctx.session.user.id,
+          },
+        },
+
+        data: {
+          printer: {
+            disconnect: true,
+          },
+          members: {
+            connect: [{ id: ctx.session.user.id }],
+          },
+        },
       });
     }),
 });

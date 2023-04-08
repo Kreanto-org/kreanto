@@ -11,6 +11,7 @@ export const useTabs: () => ITab[] = () => {
   return status === "authenticated"
     ? [
         { name: "My Profile", href: "/profile" },
+        { name: "Messages", href: "/messages" },
         { name: "Info", href: "/info" },
         { name: "Printers", href: "/printers" },
       ]
