@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { BiCheckCircle } from "react-icons/bi";
 import PrinterInfoSection from "~/components/page-specific/profile/printer-info-section";
 import ResponseInfoSection from "~/components/page-specific/profile/response-info-section";
 import Layout from "~/components/shared/layout";
@@ -14,6 +15,10 @@ const ProfilePage: React.FC = () => {
   const user = userQuery.data;
 
   const messageMut = api.chat.create.useMutation();
+  const requestedQuery = api.chat.checkRequested.useQuery({
+    recipientId: user?.id ?? "",
+  });
+  const requested = requestedQuery.data;
 
   return (
     <Layout needsAuth title={user?.name ?? ""} className="items-start">
@@ -27,14 +32,19 @@ const ProfilePage: React.FC = () => {
           <PrinterInfoSection profile={user?.printerProfile} />
         </div>
       )}
-      {!sessionData?.user.printerProfile && (
+      {!sessionData?.user.printerProfile && !requested && (
         <Button
           onClick={() =>
             messageMut.mutateAsync({ recipientId: user?.id ?? "" })
           }
         >
-          Message
+          Send Message Request
         </Button>
+      )}
+      {!sessionData?.user.printerProfile && requested && (
+        <p className="flex items-center gap-1">
+          <BiCheckCircle /> Message request sent
+        </p>
       )}
     </Layout>
   );

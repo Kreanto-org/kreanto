@@ -6,7 +6,7 @@ const Button: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
   return (
     <button
       {...rest}
-      className={`rounded-lg bg-bg-200 px-3 py-[0.4rem] text-highlight disabled:opacity-50 ${
+      className={`rounded-lg bg-bg-200 px-3 py-[0.4rem] text-highlight transition-all hover:bg-bg-200/60 disabled:opacity-50 ${
         className ?? ""
       }`}
     >
