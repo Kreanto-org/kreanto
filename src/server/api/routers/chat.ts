@@ -1,12 +1,8 @@
 import { z } from "zod";
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 export const chatRouter = createTRPCRouter({
-  findUnique: publicProcedure
+  findUnique: protectedProcedure
     .input(
       z.object({
         id: z.string(),
@@ -15,6 +11,20 @@ export const chatRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       return await ctx.prisma.chat.findUnique({ where: { id: input.id } });
     }),
+
+  findRequests: protectedProcedure
+    .input(
+      z.object({
+        printerId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.chat.findMany({
+        where: { printer_id: input.printerId },
+        include: { members: true },
+      });
+    }),
+
   create: protectedProcedure
     .input(z.object({ recipientId: z.string() }))
     .mutation(async ({ ctx, input }) => {

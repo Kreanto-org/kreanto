@@ -7,6 +7,7 @@ import {
   PrintVolumeIcon,
 } from "../profile/printer-icons";
 import Link from "next/link";
+import { useShortenedName } from "~/utils/useShortenedName";
 
 const PrinterCard: React.FC<{
   name: string | null;
@@ -17,13 +18,7 @@ const PrinterCard: React.FC<{
   color?: ColorType;
   size: number;
 }> = ({ name, slug, image, points, availability, color, size }) => {
-  // I'm so sorry for this
-  const names = name?.split(" ");
-  const nameStr =
-    names && names[0]
-      ? names[0] +
-        (names.length - 1 > 0 ? " " + (names[1] ?? " ")[0] + "." : "")
-      : name;
+  const nameStr = useShortenedName(name ?? "");
 
   return (
     <Link href={`profile/${slug}`}>
