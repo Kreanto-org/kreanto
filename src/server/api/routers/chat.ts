@@ -30,29 +30,34 @@ export const chatRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       if (ctx.session.user.printerProfile) return false; // Printers can't make messages
 
-      const chat_exists = await ctx.prisma.chat.findMany({
+      const chat_exists = await ctx.prisma.chat.findFirst({
         where: {
           printer_id: input.recipientId,
           members: { some: { id: ctx.session.user.id } },
         },
+        select: { members: true },
       });
 
-      return !!chat_exists;
+      return !!chat_exists && chat_exists.members.length === 1;
     }),
 
   create: protectedProcedure
     .input(z.object({ recipientId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       if (ctx.session.user.printerProfile) return; // Printers can't make messages
+      console.log("not printer");
 
-      const chat_exists = await ctx.prisma.chat.findMany({
+      const chat_exists = await ctx.prisma.chat.findFirst({
         where: {
           printer_id: input.recipientId,
           members: { some: { id: ctx.session.user.id } },
         },
       });
+      console.log("fuck");
+      console.log(chat_exists);
 
       if (chat_exists) return;
+      console.log("doesnt already exist");
 
       const chat = await ctx.prisma.chat.create({
         data: {

@@ -11,13 +11,17 @@ const Messages: React.FC = () => {
   const messageRequests = messageRequestsQuery.data;
   return (
     <Layout needsAuth>
-      {sessionData?.user.printerProfile && messageRequests && (
+      {sessionData?.user.printerProfile &&
+      messageRequests?.length &&
+      messageRequests?.length > 0 ? (
         <div className="flex flex-col">
           <h4>Requests</h4>
           {messageRequests.map((req, i) => (
             <RequestCard req={req} key={i} />
           ))}
         </div>
+      ) : (
+        sessionData?.user.printerProfile && <h4>No Requests</h4>
       )}
     </Layout>
   );

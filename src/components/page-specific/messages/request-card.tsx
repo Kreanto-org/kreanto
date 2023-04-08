@@ -44,7 +44,7 @@ const RequestCard: React.FC<{ req: Chat & { members: User[] } }> = ({
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={async () => {
-              await ctx.chat.invalidate();
+              await ctx.invalidate();
             }}
           >
             Accept
