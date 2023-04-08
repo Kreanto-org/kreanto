@@ -1,5 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { BiCheckCircle } from "react-icons/bi";
 import PrinterInfoSection from "~/components/page-specific/profile/printer-info-section";
 import ResponseInfoSection from "~/components/page-specific/profile/response-info-section";
@@ -24,6 +25,7 @@ const ProfilePage: React.FC = () => {
     recipientId: user?.id ?? "",
   });
   const requested = requestedQuery.data;
+  const [loading, setLoading] = useState(false);
 
   return (
     <Layout needsAuth title={user?.name ?? ""} className="items-start">
@@ -39,9 +41,11 @@ const ProfilePage: React.FC = () => {
       )}
       {!sessionData?.user.printerProfile && !requested && (
         <Button
-          onClick={() =>
-            messageMut.mutateAsync({ recipientId: user?.id ?? "" })
-          }
+          loading={loading}
+          onClick={() => {
+            setLoading(true);
+            messageMut.mutateAsync({ recipientId: user?.id ?? "" });
+          }}
         >
           Send Message Request
         </Button>
