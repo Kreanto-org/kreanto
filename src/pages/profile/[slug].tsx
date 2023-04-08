@@ -1,3 +1,4 @@
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import PrinterInfoSection from "~/components/page-specific/profile/printer-info-section";
 import ResponseInfoSection from "~/components/page-specific/profile/response-info-section";
@@ -6,6 +7,7 @@ import Button from "~/components/ui/button";
 import { api } from "~/utils/api";
 
 const ProfilePage: React.FC = () => {
+  const { data: sessionData } = useSession();
   const router = useRouter();
   const slug = router.query.slug?.toString() ?? "";
   const userQuery = api.user.findUnique.useQuery({ slug });
@@ -25,11 +27,15 @@ const ProfilePage: React.FC = () => {
           <PrinterInfoSection profile={user?.printerProfile} />
         </div>
       )}
-      <Button
-        onClick={() => messageMut.mutateAsync({ recipientId: user?.id ?? "" })}
-      >
-        Message
-      </Button>
+      {!sessionData?.user.printerProfile && (
+        <Button
+          onClick={() =>
+            messageMut.mutateAsync({ recipientId: user?.id ?? "" })
+          }
+        >
+          Message
+        </Button>
+      )}
     </Layout>
   );
 };
