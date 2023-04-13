@@ -60,6 +60,16 @@ export const chatRouter = createTRPCRouter({
       });
     }),
 
+  findChats: protectedProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.chat.findMany({
+      where: {
+        printer_id: undefined,
+        members: { some: { id: ctx.session.user.id } },
+      },
+      include: { members: true },
+    });
+  }),
+
   checkRequested: protectedProcedure
     .input(z.object({ recipientId: z.string() }))
     .query(async ({ ctx, input }) => {
@@ -126,5 +136,19 @@ export const chatRouter = createTRPCRouter({
           },
         },
       });
+    }),
+
+  getDesignerFromId: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const members = await ctx.prisma.chat.findUnique({
+        where: { id: input.id },
+        select: {
+          members: {
+            where: { printerProfile: null },
+          },
+        },
+      });
+      return members?.members[0];
     }),
 });
