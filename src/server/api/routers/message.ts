@@ -26,4 +26,16 @@ export const messageRouter = createTRPCRouter({
         },
       });
     }),
+
+  getMessages: protectedProcedure
+    .input(z.object({ chatId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const allowed = canAccess(ctx.prisma, ctx.session.user, input.chatId);
+      if (!allowed) return;
+
+      return await ctx.prisma.message.findMany({
+        where: { chatId: input.chatId },
+        orderBy: { sentOn: "asc" },
+      });
+    }),
 });

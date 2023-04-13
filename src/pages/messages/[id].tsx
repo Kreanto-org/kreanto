@@ -13,6 +13,8 @@ const MessageChat: React.FC = () => {
   const canAccess = canAccessQuery.data;
 
   const sendMut = api.message.send.useMutation();
+  const messagesQuery = api.message.getMessages.useQuery({ chatId: id });
+  const messages = messagesQuery.data;
   const [message, setMessage] = useState("");
 
   if (!canAccess && status !== "loading" && canAccessQuery.status !== "loading")
@@ -34,6 +36,9 @@ const MessageChat: React.FC = () => {
       >
         Send
       </Button>
+      {messages?.map((m, i) => (
+        <p key={i}>{m.text}</p>
+      ))}
     </Layout>
   );
 };
