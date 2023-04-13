@@ -5,6 +5,7 @@ import { cn } from "~/utils/cn";
 import { useSession } from "next-auth/react";
 import useWindowSize from "~/utils/useWindowSize";
 import MobileNavbar from "./mobile-navbar";
+import Image from "next/image";
 
 const Layout: React.FC<
   React.PropsWithChildren<{
@@ -26,7 +27,9 @@ const Layout: React.FC<
           className
         )}
       >
-        {!needsAuth || status === "authenticated" ? (
+        {status === "loading" ? (
+          <Image src="/Loading.gif" width={100} height={100} alt="loading..." />
+        ) : !needsAuth || status === "authenticated" ? (
           <>{children}</>
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center">

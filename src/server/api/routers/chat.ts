@@ -151,4 +151,16 @@ export const chatRouter = createTRPCRouter({
       });
       return members?.members[0];
     }),
+
+  canAccess: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const members = await ctx.prisma.chat.findUnique({
+        where: { id: input.id },
+        select: {
+          members: { where: { id: ctx.session.user.id } },
+        },
+      });
+      return (members?.members.length ?? 0) > 0;
+    }),
 });
