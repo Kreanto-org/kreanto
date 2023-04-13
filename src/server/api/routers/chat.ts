@@ -1,40 +1,6 @@
-import type { PrismaClient } from "@prisma/client";
-import type { User } from "next-auth";
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-
-const checkRequested = async (
-  prisma: PrismaClient,
-  user: User,
-  recipientId: string
-) => {
-  if (user.printerProfile) return false; // Printers can't make messages
-
-  const chat_exists = await prisma.chat.findFirst({
-    where: {
-      printer_id: recipientId,
-      members: { some: { id: user.id } },
-    },
-    select: { members: true },
-  });
-
-  return !!chat_exists && chat_exists.members.length === 1;
-};
-
-// Check if a chat exists with both people in it
-const checkConnected = async (prisma: PrismaClient, user: User, id: string) => {
-  if (user.printerProfile) return false; // Printers can't make messages
-
-  const chat_exists = await prisma.chat.findFirst({
-    where: {
-      printer_id: undefined,
-      members: { some: { AND: [{ id: user.id }, { id: id }] } },
-    },
-    select: { members: true },
-  });
-
-  return !!chat_exists;
-};
+import { canAccess, checkConnected, checkRequested } from "~/utils/trpcHelpers";
 
 export const chatRouter = createTRPCRouter({
   findUnique: protectedProcedure
@@ -155,12 +121,6 @@ export const chatRouter = createTRPCRouter({
   canAccess: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const members = await ctx.prisma.chat.findUnique({
-        where: { id: input.id },
-        select: {
-          members: { where: { id: ctx.session.user.id } },
-        },
-      });
-      return (members?.members.length ?? 0) > 0;
+      return canAccess(ctx.prisma, ctx.session.user, input.id);
     }),
 });
