@@ -1,4 +1,4 @@
-import { Message } from "@prisma/client";
+import type { Message as PrismaMessage } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -6,46 +6,38 @@ import Layout from "~/components/shared/layout";
 import Button from "~/components/ui/button";
 import { api } from "~/utils/api";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Message from "~/components/page-specific/messages/message";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
-  const { status } = useSession();
+  const { status, data: sessionData } = useSession();
   const id = router.query.id?.toString() ?? "";
   const canAccessQuery = api.chat.canAccess.useQuery({ id: id });
   const canAccess = canAccessQuery.data;
 
   const sendMut = api.message.send.useMutation();
-  const messagesQuery = api.message.infiniteQuery.useInfiniteQuery(
-    { chatId: id, limit: 30 },
-    {
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-      // initialCursor: 1, // <-- optional you can pass an initialCursor
-    }
-  );
 
   // ----------------------
 
-  const { data, fetchNextPage } = api.message.infiniteQuery.useInfiniteQuery(
-    {
-      limit: 3,
-      chatId: id,
-    },
-    {
-      getNextPageParam: (lastPage) => lastPage.nextCursor,
-    }
-  );
+  const { data, fetchNextPage, hasNextPage } =
+    api.message.infiniteQuery.useInfiniteQuery(
+      {
+        limit: 30,
+        chatId: id,
+      },
+      {
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+      }
+    );
 
-  const paginatedData: Message[] = [];
+  const paginatedData: PrismaMessage[] = [];
   data?.pages?.forEach((page) => {
     page.items?.forEach((char) => {
-      // paginatedData.splice(0, 0, char);
       paginatedData.push(char);
     });
   });
 
   // ----------
-
-  const messages = messagesQuery.data?.pages;
   const [message, setMessage] = useState("");
 
   if (!canAccess && status !== "loading" && canAccessQuery.status !== "loading")
@@ -76,15 +68,27 @@ const MessageChat: React.FC = () => {
           next={fetchNextPage}
           style={{ display: "flex", flexDirection: "column-reverse" }} //To put endMessage and loader to the top.
           inverse={true} //
-          hasMore={true}
+          hasMore={hasNextPage ?? true}
           loader={<h4>Loading...</h4>}
           scrollableTarget="scrollableDiv"
         >
-          {paginatedData?.map((m, i) => (
-            <p key={i} onScroll={() => console.log("yo")} className="mt-24">
-              {m.text}
-            </p>
-          ))}
+          {paginatedData?.map((m, i) => {
+            const first =
+              i === paginatedData.length - 1 ||
+              paginatedData[i + 1]?.userId !== m.userId;
+            const last = i === 0 || paginatedData[i - 1]?.userId !== m.userId;
+
+            return (
+              <Message
+                key={i}
+                isSelf={m.userId === sessionData?.user.id}
+                first={first}
+                last={last}
+              >
+                {m.text}
+              </Message>
+            );
+          })}
         </InfiniteScroll>
       </div>
     </Layout>
