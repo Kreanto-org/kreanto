@@ -146,7 +146,7 @@ model Message{
   chatId      String
 
 
-  @@index([chatId])
+  @@unique([chatId, sentOn])
 }
 
 enum ColorType {
