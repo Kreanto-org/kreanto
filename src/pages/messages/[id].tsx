@@ -7,6 +7,8 @@ import Button from "~/components/ui/button";
 import { api } from "~/utils/api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Message from "~/components/page-specific/messages/message";
+import useWindowSize from "~/utils/useWindowSize";
+import { MdSend } from "react-icons/md";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
@@ -14,6 +16,7 @@ const MessageChat: React.FC = () => {
   const id = router.query.id?.toString() ?? "";
   const canAccessQuery = api.chat.canAccess.useQuery({ id: id });
   const canAccess = canAccessQuery.data;
+  const { isMobile } = useWindowSize();
 
   const sendMut = api.message.send.useMutation();
 
@@ -48,20 +51,16 @@ const MessageChat: React.FC = () => {
       </Layout>
     );
 
+  const sendMessage = async () => {
+    await sendMut.mutateAsync({ text: message, chatId: id });
+    setMessage("");
+  };
+
   return (
     <Layout needsAuth>
-      <input value={message} onChange={(e) => setMessage(e.target.value)} />
-      <Button
-        onClick={async () => {
-          await sendMut.mutateAsync({ text: message, chatId: id });
-          setMessage("");
-        }}
-      >
-        Send
-      </Button>
       <div
         id="scrollableDiv"
-        className="flex h-[300px] w-full flex-col-reverse overflow-auto"
+        className="flex h-[75vh] w-full flex-col-reverse overflow-auto"
       >
         <InfiniteScroll
           dataLength={paginatedData.length}
@@ -90,6 +89,21 @@ const MessageChat: React.FC = () => {
             );
           })}
         </InfiniteScroll>
+      </div>
+      <div className="mt-10 flex w-full items-center gap-2 px-5">
+        <input
+          className="flex-1 rounded-lg bg-bg-200 px-4 py-2 text-white outline-none"
+          placeholder={isMobile ? "Enter" : "Enter your message..."}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={async (e) => e.key === "Enter" && (await sendMessage())}
+        />
+        <Button
+          onClick={sendMessage}
+          className="h-full bg-highlight py-2 text-white md:bg-bg-200 md:text-highlight"
+        >
+          {isMobile ? <MdSend size="1.2rem" /> : <span>Send</span>}
+        </Button>
       </div>
     </Layout>
   );
