@@ -92,7 +92,7 @@ const MessageChat: React.FC = () => {
       </div>
       <div className="mt-10 flex w-full items-center gap-2 px-5">
         <input
-          className="flex-1 rounded-lg bg-bg-200 px-4 py-2 text-white outline-none"
+          className="flex-1 rounded-lg bg-bg-200 py-2 pl-4 text-white outline-none md:px-4"
           placeholder={isMobile ? "Enter" : "Enter your message..."}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
