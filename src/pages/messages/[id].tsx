@@ -9,6 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Message from "~/components/page-specific/messages/message";
 import useWindowSize from "~/utils/useWindowSize";
 import { MdSend } from "react-icons/md";
+import { usePusher } from "../api/pusher/pusher";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const MessageChat: React.FC = () => {
   const { isMobile } = useWindowSize();
 
   const sendMut = api.message.send.useMutation();
+  usePusher(id);
 
   // ----------------------
 
