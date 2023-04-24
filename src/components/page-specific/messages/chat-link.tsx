@@ -12,18 +12,21 @@ const ChatLink: React.FC<{ chat: Chat & { members: User[] } }> = ({ chat }) => {
 
   return (
     <Link
-      className="transition-all hover:-translate-y-[3px] hover:underline"
+      className="rounded-lg transition-all hover:bg-black/[9%]  hover:underline"
       href={`/messages/${chat.id}`}
     >
       <div className="flex w-60 items-center gap-3 py-3 pl-3">
         <Image
           src={image ?? ""}
           alt="pfp"
-          width={25}
-          height={25}
+          width={50}
+          height={50}
           className="rounded-full"
         />
-        <p>{name}</p>
+        <div className="flex-col items-center justify-start gap-2">
+          <p className="text-xl font-medium">{name}</p>
+          <p className="text-sm text-slate-400">{name}</p>
+        </div>
       </div>
     </Link>
   );
