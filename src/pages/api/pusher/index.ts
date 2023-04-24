@@ -11,18 +11,12 @@ export const pusher = new Pusher({
   useTLS: true,
 });
 
-export const invalidateRoom = async (
-  roomId: string,
-  user: User,
-  redirect?: string
-) => {
-  console.log("invalidating room queries and redirecting to ", redirect);
-  await pusher.trigger(roomId, "invalidate", {
+export const sendMessageRealTime = async (roomId: string, user: User) => {
+  await pusher.trigger(roomId, "message-send", {
     raw: superjson.stringify({
       userId: user.id,
       redeemedAt: Date.now(),
       user: user,
-      path: redirect,
     }),
   });
 };

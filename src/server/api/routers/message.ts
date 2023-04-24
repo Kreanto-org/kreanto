@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { z } from "zod";
-import { invalidateRoom } from "~/pages/api/pusher";
+import { sendMessageRealTime } from "~/pages/api/pusher";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { canAccess } from "~/utils/trpcHelpers";
 
@@ -20,7 +20,7 @@ export const messageRouter = createTRPCRouter({
       const allowed = canAccess(ctx.prisma, ctx.session.user, input.chatId);
       if (!allowed) return;
 
-      invalidateRoom(input.chatId, ctx.session.user);
+      sendMessageRealTime(input.chatId, ctx.session.user);
 
       return await ctx.prisma.message.create({
         data: {

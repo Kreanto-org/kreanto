@@ -9,7 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Message from "~/components/page-specific/messages/message";
 import useWindowSize from "~/utils/useWindowSize";
 import { MdSend } from "react-icons/md";
-import { usePusher } from "../api/pusher/pusher";
+import { usePusher } from "../api/pusher/usePusher";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
