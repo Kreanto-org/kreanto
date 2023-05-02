@@ -32,7 +32,7 @@ const RequestCard: React.FC<{ req: Chat & { members: User[] } }> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger className="rounded-lg transition-all hover:bg-black/[13%]">
-        <div className="flex w-96 items-center gap-3 py-3 pl-3">
+        <div className="flex w-60 max-w-full items-center gap-3 py-3 pl-3 md:w-96">
           <Image
             src={image ?? ""}
             alt="pfp"

@@ -21,7 +21,7 @@ const ChatLink: React.FC<{
       className="rounded-lg transition-all hover:bg-black/[13%]  hover:underline"
       href={`/messages/${chat.id}`}
     >
-      <div className="flex w-96 items-center gap-3 py-3 pl-3">
+      <div className="flex w-60 items-center gap-3 py-3 pl-3 md:w-96">
         <Image
           src={image ?? ""}
           alt="pfp"
