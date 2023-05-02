@@ -118,6 +118,28 @@ export const chatRouter = createTRPCRouter({
       return members?.members[0];
     }),
 
+  getOtherUserInChat: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      if (!canAccess(ctx.prisma, ctx.session.user, input.id)) return null;
+
+      const members = await ctx.prisma.chat.findUnique({
+        where: { id: input.id },
+        select: {
+          members: {
+            where: { printerProfile: null },
+          },
+        },
+      });
+
+      if (members?.members.length === 0) return null;
+      if (members?.members.length === 1) return members.members[0];
+
+      if (members?.members[0]?.id === ctx.session.user.id)
+        return members.members[1];
+      return members?.members[0];
+    }),
+
   canAccess: protectedProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {

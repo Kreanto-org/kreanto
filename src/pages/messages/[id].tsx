@@ -10,6 +10,7 @@ import Message from "~/components/page-specific/messages/message";
 import useWindowSize from "~/utils/useWindowSize";
 import { MdSend } from "react-icons/md";
 import { usePusher } from "../api/pusher/usePusher";
+import Image from "next/image";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
@@ -58,12 +59,26 @@ const MessageChat: React.FC = () => {
     setMessage("");
   };
 
+  const otherPersonInChatQuery = api.chat.getOtherUserInChat.useQuery({ id });
+  const otherPersonInChat = otherPersonInChatQuery.data;
+
   return (
-    <Layout needsAuth>
+    <Layout needsAuth noFooter>
       <div
         id="scrollableDiv"
         className="flex h-[75vh] w-full flex-col-reverse overflow-auto"
       >
+        <div className="flex gap-2">
+          <Image
+            src={otherPersonInChat?.image ?? ""}
+            className="rounded-full"
+            alt="Person"
+            width={30}
+            height={20}
+          />
+          <p>{otherPersonInChat?.name}</p>
+        </div>
+
         <InfiniteScroll
           dataLength={paginatedData.length}
           next={fetchNextPage}

@@ -13,8 +13,16 @@ const Layout: React.FC<
     unAuthMessage?: string;
     needsAuth?: boolean;
     className?: string;
+    noFooter?: boolean;
   }>
-> = ({ title, unAuthMessage, needsAuth = false, className, children }) => {
+> = ({
+  title,
+  unAuthMessage,
+  needsAuth = false,
+  className,
+  noFooter = false,
+  children,
+}) => {
   const { status } = useSession();
   const { isMobile } = useWindowSize();
   return (
@@ -38,7 +46,7 @@ const Layout: React.FC<
           </div>
         )}
       </div>
-      <Footer />
+      {!noFooter && <Footer />}
     </main>
   );
 };
