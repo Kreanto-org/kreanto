@@ -4,7 +4,9 @@ import { useShortenedName } from "~/utils/useShortenedName";
 import Link from "next/link";
 import { api } from "~/utils/api";
 
-const ChatLink: React.FC<{ chat: Chat & { members: User[] } }> = ({ chat }) => {
+const ChatLink: React.FC<{
+  chat: Chat & { members: User[] };
+}> = ({ chat }) => {
   const designerQuery = api.chat.getDesignerFromId.useQuery({ id: chat.id });
   const designer = designerQuery.data;
   const name = useShortenedName(designer?.name ?? "");
@@ -19,7 +21,7 @@ const ChatLink: React.FC<{ chat: Chat & { members: User[] } }> = ({ chat }) => {
       className="rounded-lg transition-all hover:bg-black/[13%]  hover:underline"
       href={`/messages/${chat.id}`}
     >
-      <div className="flex w-60 items-center gap-3 py-3 pl-3">
+      <div className="flex w-96 items-center gap-3 py-3 pl-3">
         <Image
           src={image ?? ""}
           alt="pfp"

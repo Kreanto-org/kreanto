@@ -22,6 +22,24 @@ const Messages: React.FC = () => {
       <div className="flex h-full w-full flex-[4] flex-col items-start justify-start">
         <h1>Your Messages</h1>
 
+        {sessionData?.user.printerProfile &&
+        messageRequests?.length &&
+        messageRequests?.length > 0 ? (
+          <div className="flex flex-col">
+            {messageRequests.map((req, i) => (
+              <RequestCard req={req} key={i} />
+            ))}
+          </div>
+        ) : (
+          sessionData?.user.printerProfile && <h4>No Chats</h4>
+        )}
+
+        {chats?.length && messageRequests?.length ? (
+          <hr className="my-2  w-96 border-text-100/20" />
+        ) : (
+          <></>
+        )}
+
         {chats?.length && chats?.length > 0 ? (
           <div className="flex flex-col">
             {chats.map((chat, i) => (
