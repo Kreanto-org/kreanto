@@ -16,7 +16,7 @@ const PersonPreview: React.FC<{ chatId: string; req?: boolean }> = ({
   const lastMessage = lastMessageQuery.data;
 
   return (
-    <div className="flex w-60 max-w-full items-center gap-3 py-3 pl-3 md:w-96">
+    <div className="flex w-full max-w-full items-center gap-3 py-3 pl-3 md:w-96">
       <Image
         src={image ?? ""}
         alt="pfp"

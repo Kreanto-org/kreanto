@@ -25,7 +25,7 @@ const RequestCard: React.FC<{ req: Chat & { members: User[] } }> = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="rounded-lg transition-all hover:bg-black/[13%]">
+      <AlertDialogTrigger className="w-full rounded-lg transition-all hover:bg-black/[13%]">
         <PersonPreview chatId={req.id} req />
       </AlertDialogTrigger>
       <AlertDialogContent>

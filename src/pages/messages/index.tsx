@@ -20,13 +20,13 @@ const Messages: React.FC = () => {
   return (
     <Layout needsAuth className="flex-row items-start p-10 pt-12">
       <div className="flex h-full w-full flex-[4] flex-col items-start justify-start">
-        <h1>Your Messages</h1>
+        <h1>{isMobile ? "" : "Your "}Messages</h1>
 
         {isMobile &&
         sessionData?.user.printerProfile &&
         messageRequests?.length &&
         messageRequests?.length > 0 ? (
-          <div className="flex flex-col">
+          <div className="flex w-full flex-col">
             {messageRequests.map((req, i) => (
               <RequestCard req={req} key={i} />
             ))}
@@ -42,7 +42,7 @@ const Messages: React.FC = () => {
         )}
 
         {chats?.length && chats?.length > 0 ? (
-          <div className="flex flex-col">
+          <div className="flex w-full flex-col">
             {chats.map((chat, i) => (
               <ChatLink chat={chat} key={i} />
             ))}
