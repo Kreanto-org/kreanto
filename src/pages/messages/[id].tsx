@@ -19,6 +19,7 @@ const MessageChat: React.FC = () => {
   const canAccessQuery = api.chat.canAccess.useQuery({ id: id });
   const canAccess = canAccessQuery.data;
   const { isMobile } = useWindowSize();
+  const [disabled, setDisabled] = useState(false);
 
   const sendMut = api.message.send.useMutation();
   usePusher(id);
@@ -55,8 +56,11 @@ const MessageChat: React.FC = () => {
     );
 
   const sendMessage = async () => {
+    if (disabled || !message.trim()) return;
+    setDisabled(true);
     await sendMut.mutateAsync({ text: message, chatId: id });
     setMessage("");
+    setDisabled(false);
   };
 
   const otherPersonInChatQuery = api.chat.getOtherUserInChat.useQuery({ id });
@@ -117,6 +121,7 @@ const MessageChat: React.FC = () => {
         />
         <Button
           onClick={sendMessage}
+          disabled={disabled}
           className="h-full bg-highlight py-2 text-white md:bg-bg-200 md:text-highlight"
         >
           {isMobile ? <MdSend size="1.2rem" /> : <span>Send</span>}
