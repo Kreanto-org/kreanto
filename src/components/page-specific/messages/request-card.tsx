@@ -11,19 +11,13 @@ import {
   AlertDialogTrigger,
 } from "~/components/ui/alert";
 import { api } from "~/utils/api";
-import Image from "next/image";
+import PersonPreview from "./person-preview";
 
 const RequestCard: React.FC<{ req: Chat & { members: User[] } }> = ({
   req,
 }) => {
   const name = useShortenedName(req.members[0]?.name ?? "");
-  const image = req.members[0]?.image;
   const ctx = api.useContext();
-
-  const lastMessageQuery = api.message.getLastMessage.useQuery({
-    chatId: req.id,
-  });
-  const lastMessage = lastMessageQuery.data;
 
   const joinMut = api.chat.printerJoin.useMutation({
     onSuccess: async () => await ctx.invalidate(),
@@ -32,22 +26,7 @@ const RequestCard: React.FC<{ req: Chat & { members: User[] } }> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger className="rounded-lg transition-all hover:bg-black/[13%]">
-        <div className="flex w-60 max-w-full items-center gap-3 py-3 pl-3 md:w-96">
-          <Image
-            src={image ?? ""}
-            alt="pfp"
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-          <div className="flex-col items-center justify-start gap-2">
-            <p className="text-xl font-medium">{name}</p>
-            <p className="w-fit text-sm text-slate-400">
-              {lastMessage?.text ?? ""}
-            </p>
-          </div>
-          <p className="mb-auto ml-auto mr-4 text-sm text-slate-300">req</p>
-        </div>
+        <PersonPreview chatId={req.id} req />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
