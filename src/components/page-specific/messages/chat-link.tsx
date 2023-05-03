@@ -7,10 +7,10 @@ import { api } from "~/utils/api";
 const ChatLink: React.FC<{
   chat: Chat & { members: User[] };
 }> = ({ chat }) => {
-  const designerQuery = api.chat.getDesignerFromId.useQuery({ id: chat.id });
-  const designer = designerQuery.data;
-  const name = useShortenedName(designer?.name ?? "");
-  const image = designer?.image;
+  const otherUserQuery = api.chat.getOtherUserInChat.useQuery({ id: chat.id });
+  const otherUser = otherUserQuery.data;
+  const name = useShortenedName(otherUser?.name ?? "");
+  const image = otherUser?.image;
   const lastMessageQuery = api.message.getLastMessage.useQuery({
     chatId: chat.id,
   });

@@ -126,9 +126,7 @@ export const chatRouter = createTRPCRouter({
       const members = await ctx.prisma.chat.findUnique({
         where: { id: input.id },
         select: {
-          members: {
-            where: { printerProfile: null },
-          },
+          members: true,
         },
       });
 
