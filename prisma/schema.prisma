@@ -73,6 +73,7 @@ model User {
     printerProfile  PrinterProfile?
     hasSignedUp     Boolean @default(false)
     chats           Chat[]
+    requests        PrintRequest[]
 }
 
 model PrinterProfile {
@@ -95,11 +96,14 @@ model PrintRequest{
   id            String @id @default(cuid())
   printer       PrinterProfile @relation(fields: [printerId], references: [userId])
   printerId     String
+  requester     User @relation(fields: [requesterId], references: [id])
+  requesterId   String
 
   link          String
   colorChoice   String
 
   @@index([printerId])
+  @@index([requesterId])
 }
 
 model Color {
