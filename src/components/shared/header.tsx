@@ -22,6 +22,10 @@ export const Header: React.FC<{ title?: string }> = ({ title }) => {
         property="og:description"
         content="Kreanto connects those without access to 3D printing to people who do, bridging the gap in STEAM one print at a time."
       />
+      <meta
+        property="description"
+        content="Kreanto connects those without access to 3D printing to people who do, bridging the gap in STEAM one print at a time."
+      />
     </Head>
   );
 };
