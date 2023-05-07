@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { cn } from "~/utils/cn";
+import Loading from "../shared/loading";
 
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -24,13 +24,7 @@ const Button: React.FC<IButtonProps> = ({
     >
       {loading ? (
         <div className="relative flex items-center justify-center">
-          <Image
-            src="/Loading.gif"
-            width={16}
-            height={16}
-            alt="Loading..."
-            className="absolute top-auto bottom-auto left-auto right-auto"
-          />
+          <Loading size={16} className="absolute" />
           <div className="w-full opacity-0">{children}</div>
         </div>
       ) : (

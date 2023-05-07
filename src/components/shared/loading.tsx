@@ -1,8 +1,11 @@
 import { motion, motionValue, useTransform } from "framer-motion";
 
-const Loading: React.FC<{ size?: number }> = ({ size = 200 }) => {
+const Loading: React.FC<{ size?: number; className?: string }> = ({
+  size = 200,
+  className,
+}) => {
   return (
-    <div>
+    <div className={className}>
       {" "}
       <motion.div
         animate={{ rotate: 360 }}
@@ -20,10 +23,12 @@ const Loading: React.FC<{ size?: number }> = ({ size = 200 }) => {
 };
 
 const Hexagon: React.FC<{ i: number; size: number }> = ({ i, size }) => {
-  const val = motionValue(2.7 * (i - 1));
+  const scale = 6;
+
+  const val = motionValue(scale * (i - 1));
   const pos = useTransform(val, (value) => `${value}%`);
 
-  const val2 = motionValue(-2.7 * (i - 1));
+  const val2 = motionValue(-scale * (i - 1));
   const pos2 = useTransform(val2, (value) => `${value}%`);
   return (
     <motion.img

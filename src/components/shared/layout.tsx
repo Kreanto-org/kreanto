@@ -5,7 +5,7 @@ import { cn } from "~/utils/cn";
 import { useSession } from "next-auth/react";
 import useWindowSize from "~/utils/useWindowSize";
 import MobileNavbar from "./mobile-navbar";
-import Image from "next/image";
+import Loading from "./loading";
 
 const Layout: React.FC<
   React.PropsWithChildren<{
@@ -36,7 +36,7 @@ const Layout: React.FC<
         )}
       >
         {status === "loading" ? (
-          <Image src="/Loading.gif" width={100} height={100} alt="loading..." />
+          <Loading />
         ) : !needsAuth || status === "authenticated" ? (
           <>{children}</>
         ) : (

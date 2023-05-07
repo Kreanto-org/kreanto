@@ -1,6 +1,5 @@
 import { type NextPage } from "next";
 import Layout from "~/components/shared/layout";
-import Loading from "~/components/shared/loading";
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +10,6 @@ const Home: NextPage = () => {
       <p className="mt-4 text-text-200">
         Enabling creators, empowering makers.
       </p>
-      <Loading />
     </Layout>
   );
 };
