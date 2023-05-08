@@ -1,5 +1,6 @@
 import { createClient } from "next-sanity";
-import * as Icons from "react-icons/fa";
+// import * as Icons from "react-icons/fa";
+import { FaBowlingBall } from "react-icons/fa";
 import type { IconBaseProps, IconType } from "react-icons";
 
 export const cms = createClient({
@@ -19,11 +20,12 @@ export interface InfoPageType {
 export const DynamicFontAwesomeIcon: (name: string | undefined) => IconType = (
   name
 ) => {
-  if (name && Object.keys(Icons).includes(name)) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return Icons[name];
-  }
+  // if (name && Object.keys(Icons).includes(name)) {
+  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //   // @ts-ignore
+  //   return Icons[name];
+  // }
+  return FaBowlingBall;
 };
 
 interface IDynamicProps extends IconBaseProps {

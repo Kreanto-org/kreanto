@@ -31,7 +31,7 @@ const Layout: React.FC<
       {isMobile ? <MobileNavbar /> : <Navbar />}
       <div
         className={cn(
-          "flex h-full w-full flex-1 flex-col items-center justify-center",
+          "flex h-full w-full flex-1 flex-col items-center justify-center overflow-x-hidden",
           className
         )}
       >
