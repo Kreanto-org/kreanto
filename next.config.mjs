@@ -1,5 +1,7 @@
 // @ts-check
 
+import NBA from "@next/bundle-analyzer";
+
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
  * This is especially useful for Docker builds.
@@ -24,4 +26,10 @@ const config = {
     domains: ["lh3.googleusercontent.com"],
   },
 };
-export default config;
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withBundleAnalyzer = NBA({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(config);

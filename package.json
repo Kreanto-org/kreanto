@@ -9,7 +9,8 @@
     "seed": "NODE_ENV=development prisma db seed",
     "lint": "next lint",
     "start": "next start",
-    "reset-db": "yarn prisma db push --force-reset && yarn prisma db push && yarn prisma generate && yarn seed"
+    "reset-db": "yarn prisma db push --force-reset && yarn prisma db push && yarn prisma generate && yarn seed",
+    "analyze": "cross-env ANALYZE=true next build"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -48,6 +49,7 @@
     "zod": "^3.20.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.1",
     "@types/node": "^18.11.18",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.26",
@@ -56,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "autoprefixer": "^10.4.7",
+    "cross-env": "^7.0.3",
     "eslint": "^8.30.0",
     "eslint-config-next": "^13.2.4",
     "postcss": "^8.4.14",
