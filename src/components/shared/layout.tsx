@@ -46,7 +46,7 @@ const Layout: React.FC<
           </div>
         )}
       </div>
-      {!noFooter && <Footer />}
+      {!noFooter && status !== "loading" && <Footer />}
     </main>
   );
 };
