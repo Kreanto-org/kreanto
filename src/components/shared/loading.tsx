@@ -1,4 +1,5 @@
 import { motion, motionValue, useTransform } from "framer-motion";
+import { HexagonTemplate, hexagonPoints } from "./loading-hexagons";
 
 const Loading: React.FC<{ size?: number; className?: string }> = ({
   size = 200,
@@ -14,7 +15,7 @@ const Loading: React.FC<{ size?: number; className?: string }> = ({
       >
         <div className="relative h-full w-full">
           {new Array(5).fill(0).map((_, i) => (
-            <Hexagon i={i + 1} key={i} size={size} />
+            <Hexagon i={i} key={i} size={size} />
           ))}
         </div>
       </motion.div>
@@ -25,27 +26,29 @@ const Loading: React.FC<{ size?: number; className?: string }> = ({
 const Hexagon: React.FC<{ i: number; size: number }> = ({ i, size }) => {
   const scale = 6;
 
-  const val = motionValue(scale * (i - 1));
+  const val = motionValue(scale * i);
   const pos = useTransform(val, (value) => `${value}%`);
 
-  const val2 = motionValue(-scale * (i - 1));
+  const val2 = motionValue(-scale * i);
   const pos2 = useTransform(val2, (value) => `${value}%`);
   return (
-    <motion.img
-      src={`/hexagons/hex-0${i}.svg`}
-      style={{ y: i === 1 ? 0 : pos }}
-      animate={{ y: i === 1 ? 0 : pos2.get() }}
+    <motion.div
+      style={{ y: i === 0 ? 0 : pos }}
+      animate={{ y: i === 0 ? 0 : pos2.get() }}
       transition={{
         ease: "linear",
         duration: 0.66,
         repeat: Infinity,
         repeatType: "reverse",
       }}
-      alt="hex"
-      width={size}
-      height={size}
       className="absolute "
-    />
+    >
+      <HexagonTemplate
+        points={hexagonPoints[i] ?? ""}
+        size={size}
+        filled={i === hexagonPoints.length - 1}
+      />
+    </motion.div>
   );
 };
 
