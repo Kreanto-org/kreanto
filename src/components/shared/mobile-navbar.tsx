@@ -3,9 +3,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { cn } from "~/utils/cn";
 import { useRouter } from "next/router";
 import Logo from "./logo";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { useTabs } from "./tabs";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { FaHamburger } from "react-icons/fa";
 
 const MobileNavbar: React.FC = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const MobileNavbar: React.FC = () => {
       <Popover>
         <div className="flex w-full flex-1 items-center justify-end">
           <PopoverTrigger aria-label="View tabs">
-            <GiHamburgerMenu />
+            <FaHamburger />
           </PopoverTrigger>
         </div>
 
