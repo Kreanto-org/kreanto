@@ -24,7 +24,11 @@ const Profile: React.FC = () => {
           <PrinterInfoSection profile={sessionData?.user.printerProfile} />
         </div>
       )}
-      <Link className="w-full text-center underline" href="/messages">
+      <Link
+        className="w-full text-center underline"
+        href="/messages"
+        aria-label="Messages"
+      >
         Messages
       </Link>
     </Layout>

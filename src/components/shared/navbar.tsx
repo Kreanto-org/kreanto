@@ -29,6 +29,7 @@ const Navbar: React.FC = () => {
               ? "bg-black/40 fill-white"
               : "bg-black/20 fill-[#9f9fa2]"
           )}
+          aria-label="Home"
         >
           <Logo size="1.4rem" inherit />
         </Link>

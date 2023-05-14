@@ -7,7 +7,7 @@ const Preview: React.FC<{ title: string; slug: string; icon: string }> = ({
   icon,
 }) => {
   return (
-    <Link href={`/info/${slug}`}>
+    <Link href={`/info/${slug}`} aria-label={title + " Info page"}>
       <div className="group flex h-72 w-full flex-col items-center rounded-3xl bg-bg-200/60 transition-all hover:scale-105 hover:bg-bg-200/80 active:bg-bg-200">
         <DynamicIcon
           name={icon}

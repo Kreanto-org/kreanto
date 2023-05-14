@@ -23,6 +23,7 @@ const InfoTooltip: React.FC<
             <Link
               className="flex items-center gap-2 border-b-[1px]"
               href={learnMore}
+              aria-label="Learn more"
             >
               Learn more
               <BsArrowUpRight />

@@ -21,7 +21,7 @@ const PrinterCard: React.FC<{
   const nameStr = useShortenedName(name ?? "");
 
   return (
-    <Link href={`profile/${slug}`}>
+    <Link href={`profile/${slug}`} aria-label={"Printer profile of " + nameStr}>
       <div className="flex w-80 items-center gap-3 rounded-lg bg-bg-200 p-4 transition-all hover:-translate-y-2 hover:bg-bg-200/75">
         <Image
           src={image ?? ""}

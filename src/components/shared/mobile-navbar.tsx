@@ -17,6 +17,7 @@ const MobileNavbar: React.FC = () => {
       <div className="flex flex-1 items-center justify-start">
         <Link
           href="/"
+          aria-label="Home"
           className={cn(
             "flex items-center justify-center",
             router.pathname === "/" ? "fill-white" : "fill-[#9f9fa2]"
@@ -40,6 +41,7 @@ const MobileNavbar: React.FC = () => {
               className={
                 router.pathname === t.href ? "text-text-100" : "text-text-200"
               }
+              aria-label={t.name + " Tab"}
             >
               {t.name}
             </Link>
@@ -60,6 +62,7 @@ const MobileNavbar: React.FC = () => {
                       )}`,
                     })
             }
+            aria-label={sessionData ? "Sign out" : "Sign in"}
           >
             {sessionData ? "Sign out" : "Sign in"}
           </Link>

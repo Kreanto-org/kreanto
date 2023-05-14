@@ -26,6 +26,7 @@ const Footer: React.FC = () => {
             target="_blank"
             rel="noreferrer"
             className="text-highlight underline"
+            aria-label="Creator link"
           >
             Santiago Vira
           </Link>

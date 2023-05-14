@@ -34,6 +34,7 @@ const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
           <Link
             href="/info"
             className="flex items-center gap-2 border-b-[1px] border-transparent text-text-100/70 transition-all hover:border-text-100/70"
+            aria-label="Information"
           >
             <HiOutlineArrowUturnLeft />
             Information
@@ -46,6 +47,7 @@ const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
                 href={`/info/${page.slug}`}
                 key={i}
                 className="mb-2 border-b-[1px] border-transparent text-text-100/70 transition-all hover:border-text-100/70"
+                aria-label={page.title + " information page"}
               >
                 {page.title}
               </Link>
