@@ -4,6 +4,7 @@ import Loading from "../shared/loading";
 export interface IButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
+  name: string;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -11,12 +12,14 @@ const Button: React.FC<IButtonProps> = ({
   className,
   loading = false,
   disabled,
+  name,
   ...rest
 }) => {
   return (
     <button
       {...rest}
       disabled={disabled || loading}
+      aria-label={name}
       className={cn(
         `rounded-lg bg-bg-200 px-3 py-[0.4rem] text-highlight transition-all hover:bg-bg-200/60 disabled:opacity-5`,
         className

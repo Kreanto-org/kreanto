@@ -140,11 +140,16 @@ const SignUpPage: NextPage = () => {
             <Button
               type="submit"
               onClick={() => setRole("")}
-              className="text-text-200 "
+              className="text-text-200"
+              name="Back"
             >
               Go Back
             </Button>
-            <Button type="submit" onClick={() => console.log(errors)}>
+            <Button
+              type="submit"
+              onClick={() => console.log(errors)}
+              name="Join as printer"
+            >
               Join Now!
             </Button>
           </div>

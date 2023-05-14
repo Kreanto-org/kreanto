@@ -123,6 +123,7 @@ const MessageChat: React.FC = () => {
           onClick={sendMessage}
           disabled={disabled}
           className="h-full bg-highlight py-2 text-white md:bg-bg-200 md:text-highlight"
+          name="Send"
         >
           {isMobile ? <MdSend size="1.2rem" /> : <span>Send</span>}
         </Button>

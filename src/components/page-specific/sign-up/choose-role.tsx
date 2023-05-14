@@ -20,7 +20,11 @@ const ChooseRole: React.FC<{
           onClick={() => setRole("PRINTER")}
         />
       </div>
-      <Button onClick={() => setValue(role)} disabled={role === ""}>
+      <Button
+        onClick={() => setValue(role)}
+        disabled={role === ""}
+        name="Confirm"
+      >
         Confirm
       </Button>
     </div>

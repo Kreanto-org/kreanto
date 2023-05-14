@@ -6,6 +6,7 @@ import Logo from "./logo";
 import { Fragment } from "react";
 import { cn } from "~/utils/cn";
 import { useTabs } from "./tabs";
+import Button from "../ui/button";
 
 export interface ITab {
   name: string;
@@ -53,7 +54,7 @@ const Navbar: React.FC = () => {
         ))}
       </div>
       <div className="flex h-full flex-1 items-center justify-end">
-        <button
+        <Button
           className="h-full rounded-full bg-black/20 px-[0.7rem] text-right text-text-200 no-underline transition hover:-translate-y-0.5 hover:bg-black/40 hover:text-highlight"
           onClick={
             sessionData
@@ -65,9 +66,10 @@ const Navbar: React.FC = () => {
                     )}`,
                   })
           }
+          name={sessionData ? "Sign out" : "Sign in"}
         >
           {sessionData ? "Sign out" : "Sign in"}
-        </button>
+        </Button>
       </div>
     </div>
   );

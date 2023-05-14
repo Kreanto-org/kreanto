@@ -50,6 +50,7 @@ const ProfilePage: React.FC = () => {
             setLoading(true);
             messageMut.mutateAsync({ recipientId: user?.id ?? "" });
           }}
+          name="Send Message Request"
         >
           Send Message Request
         </Button>
