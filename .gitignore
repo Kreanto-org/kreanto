@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+/unl
 
 # database
 /prisma/db.sqlite

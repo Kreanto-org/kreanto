@@ -62,7 +62,7 @@ const MobileNavbar: React.FC = () => {
                       )}`,
                     })
             }
-            aria-label={sessionData ? "Sign out" : "Sign in"}
+            aria-label="Account"
           >
             {sessionData ? "Sign out" : "Sign in"}
           </Link>

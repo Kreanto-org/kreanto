@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                     )}`,
                   })
           }
-          name={sessionData ? "Sign out" : "Sign in"}
+          name="Account"
         >
           {sessionData ? "Sign out" : "Sign in"}
         </Button>
