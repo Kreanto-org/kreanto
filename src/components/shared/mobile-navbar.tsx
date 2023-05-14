@@ -28,7 +28,7 @@ const MobileNavbar: React.FC = () => {
       </div>
       <Popover>
         <div className="flex w-full flex-1 items-center justify-end">
-          <PopoverTrigger>
+          <PopoverTrigger aria-label="View tabs">
             <GiHamburgerMenu />
           </PopoverTrigger>
         </div>

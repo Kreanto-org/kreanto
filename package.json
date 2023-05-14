@@ -11,7 +11,7 @@
     "start": "next start",
     "reset-db": "yarn prisma db push --force-reset && yarn prisma db push && yarn prisma generate && yarn seed",
     "analyze": "cross-env ANALYZE=true next build",
-    "unlighthouse": "npx unlighthouse --site https://kreanto.org"
+    "unlighthouse": "npx unlighthouse --site kreanto.org"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
