@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Logo from "./logo";
 import { useTabs } from "./tabs";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { FaHamburger } from "react-icons/fa";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const MobileNavbar: React.FC = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const MobileNavbar: React.FC = () => {
       <Popover>
         <div className="flex w-full flex-1 items-center justify-end">
           <PopoverTrigger aria-label="View tabs">
-            <FaHamburger />
+            <RxHamburgerMenu />
           </PopoverTrigger>
         </div>
 

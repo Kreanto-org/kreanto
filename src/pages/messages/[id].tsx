@@ -26,7 +26,7 @@ const MessageChat: React.FC = () => {
 
   // ----------------------
 
-  const { data, fetchNextPage, hasNextPage } =
+  const { data, fetchNextPage, hasNextPage, isLoading } =
     api.message.infiniteQuery.useInfiniteQuery(
       {
         limit: 30,
@@ -67,22 +67,29 @@ const MessageChat: React.FC = () => {
   const otherPersonInChat = otherPersonInChatQuery.data;
 
   return (
-    <Layout needsAuth noFooter>
-      <div
-        id="scrollableDiv"
-        className="flex h-[75vh] w-full flex-col-reverse overflow-auto"
-      >
-        <div className="flex gap-2">
+    <Layout needsAuth noFooter loading={isLoading}>
+      <div className="flex w-full items-center justify-between px-4 pb-4">
+        <div className="flex items-center gap-4">
           <Image
             src={otherPersonInChat?.image ?? ""}
             className="rounded-full"
             alt="Person"
-            width={30}
+            width={40}
             height={20}
           />
-          <p>{otherPersonInChat?.name}</p>
+          <p className="text-[1.325rem]">{otherPersonInChat?.name}</p>
         </div>
+        <div>
+          {!sessionData?.user.printerProfile && (
+            <Button name="Request a print">Request</Button>
+          )}
+        </div>
+      </div>
 
+      <div
+        id="scrollableDiv"
+        className="flex h-[75vh] w-full flex-col-reverse overflow-auto"
+      >
         <InfiniteScroll
           dataLength={paginatedData.length}
           next={fetchNextPage}
@@ -111,7 +118,7 @@ const MessageChat: React.FC = () => {
           })}
         </InfiniteScroll>
       </div>
-      <div className="mt-10 flex w-full items-center gap-2 px-5">
+      <div className="mt-6 flex w-full items-center gap-2 px-5">
         <input
           className="flex-1 rounded-lg bg-bg-200 py-2 pl-4 text-white outline-none md:px-4"
           placeholder={isMobile ? "Enter" : "Enter your message..."}

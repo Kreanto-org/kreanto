@@ -14,6 +14,7 @@ const Layout: React.FC<
     needsAuth?: boolean;
     className?: string;
     noFooter?: boolean;
+    loading?: boolean;
   }>
 > = ({
   title,
@@ -21,10 +22,13 @@ const Layout: React.FC<
   needsAuth = false,
   className,
   noFooter = false,
+  loading = false,
   children,
 }) => {
   const { status } = useSession();
   const { isMobile } = useWindowSize();
+  const isLoading = loading || status === "loading";
+
   return (
     <main className="flex min-h-screen flex-col items-center bg-bg-main text-text-100">
       <Header title={title} />
@@ -35,7 +39,7 @@ const Layout: React.FC<
           className
         )}
       >
-        {status === "loading" ? (
+        {isLoading ? (
           <Loading />
         ) : !needsAuth || status === "authenticated" ? (
           <>{children}</>
@@ -46,7 +50,7 @@ const Layout: React.FC<
           </div>
         )}
       </div>
-      {!noFooter && status !== "loading" && <Footer />}
+      {!noFooter && isLoading && <Footer />}
     </main>
   );
 };
