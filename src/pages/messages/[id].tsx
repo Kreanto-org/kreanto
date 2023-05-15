@@ -63,16 +63,13 @@ const MessageChat: React.FC = () => {
     setDisabled(false);
   };
 
+  const otherPersonInChatQuery = api.chat.getOtherUserInChat.useQuery({
+    id,
+  });
+  const otherPersonInChat = otherPersonInChatQuery.data;
+
   return (
     <Layout needsAuth noFooter loading={isLoading}>
-      <div className="flex w-full items-center justify-between px-4 pb-4">
-        <div>
-          {!sessionData?.user.printerProfile && (
-            <Button name="Request a print">Request</Button>
-          )}
-        </div>
-      </div>
-
       <div
         id="scrollableDiv"
         className="flex h-[75vh] w-full flex-col-reverse overflow-auto"
@@ -98,6 +95,10 @@ const MessageChat: React.FC = () => {
               </Message>
             );
           })}
+          <p className="text-text-200">
+            Messaging with{" "}
+            <span className="text-text-100/90">{otherPersonInChat?.name}</span>
+          </p>
         </InfiniteScroll>
       </div>
       <div className="mt-6 flex w-full items-center gap-2 px-4">

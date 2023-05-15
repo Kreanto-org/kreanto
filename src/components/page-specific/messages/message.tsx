@@ -34,7 +34,9 @@ const Message: React.FC<
       </div>
       <div className="mx-2 flex flex-1 flex-col items-start justify-start">
         {first && !isSelf && (
-          <p className="text-[0.9rem]">{otherPersonInChat?.name}</p>
+          <p className="text-[0.9rem] text-text-200">
+            {otherPersonInChat?.name}
+          </p>
         )}
         <p
           className={cn(
