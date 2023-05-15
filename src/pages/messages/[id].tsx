@@ -10,7 +10,7 @@ import Message from "~/components/page-specific/messages/message";
 import useWindowSize from "~/utils/useWindowSize";
 import { MdSend } from "react-icons/md";
 import { usePusher } from "../api/pusher/usePusher";
-import Image from "next/image";
+import { HiDocumentArrowUp } from "react-icons/hi2";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
@@ -63,22 +63,9 @@ const MessageChat: React.FC = () => {
     setDisabled(false);
   };
 
-  const otherPersonInChatQuery = api.chat.getOtherUserInChat.useQuery({ id });
-  const otherPersonInChat = otherPersonInChatQuery.data;
-
   return (
     <Layout needsAuth noFooter loading={isLoading}>
       <div className="flex w-full items-center justify-between px-4 pb-4">
-        <div className="flex items-center gap-4">
-          <Image
-            src={otherPersonInChat?.image ?? ""}
-            className="rounded-full"
-            alt="Person"
-            width={40}
-            height={20}
-          />
-          <p className="text-[1.325rem]">{otherPersonInChat?.name}</p>
-        </div>
         <div>
           {!sessionData?.user.printerProfile && (
             <Button name="Request a print">Request</Button>
@@ -106,19 +93,25 @@ const MessageChat: React.FC = () => {
             const last = i === 0 || paginatedData[i - 1]?.userId !== m.userId;
 
             return (
-              <Message
-                key={i}
-                isSelf={m.userId === sessionData?.user.id}
-                first={first}
-                last={last}
-              >
+              <Message key={i} message={m} first={first} last={last}>
                 {m.text}
               </Message>
             );
           })}
         </InfiniteScroll>
       </div>
-      <div className="mt-6 flex w-full items-center gap-2 px-5">
+      <div className="mt-6 flex w-full items-center gap-2 px-4">
+        {!sessionData?.user.printerProfile && (
+          <Button
+            onClick={() => console.log("hi")}
+            disabled={disabled}
+            className="h-full bg-highlight py-3 text-white md:bg-bg-200 md:text-highlight"
+            name="Request a print"
+          >
+            <HiDocumentArrowUp />
+          </Button>
+        )}
+
         <input
           className="flex-1 rounded-lg bg-bg-200 py-2 pl-4 text-white outline-none md:px-4"
           placeholder={isMobile ? "Enter" : "Enter your message..."}
