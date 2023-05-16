@@ -1,8 +1,9 @@
+import type { NextPage } from "next";
 import PrinterCard from "~/components/page-specific/printers/printer-card";
 import Layout from "~/components/shared/layout";
 import { api } from "~/utils/api";
 
-const Printers: React.FC = () => {
+const Printers: NextPage = () => {
   const printersQuery = api.user.getPrinters.useQuery();
   const printers = printersQuery.data;
   console.log(printers);
