@@ -6,6 +6,7 @@ export const Header: React.FC<{ title?: string }> = ({ title }) => {
       <title>{`${title ? title + " | " : ""}Kreanto`}</title>
       <link rel="icon" href="/favicon.ico" />
       <meta charSet="UTF-8" />
+      <link rel="manifest" href="manifest.json" />
       <meta
         name="keywords"
         content="3d printing, 3d print, design, 3d model, designer, maker, creator, create, kreanto"
