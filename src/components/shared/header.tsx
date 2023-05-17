@@ -5,6 +5,7 @@ export const Header: React.FC<{ title?: string }> = ({ title }) => {
     <Head>
       <title>{`${title ? title + " | " : ""}Kreanto`}</title>
       <link rel="icon" href="/favicon.ico" />
+      <link rel="shortcut icon" href="/favicon.ico" />
       <meta charSet="UTF-8" />
       <link rel="manifest" href="manifest.json" />
       <meta
