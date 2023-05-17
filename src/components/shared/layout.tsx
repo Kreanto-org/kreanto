@@ -50,7 +50,7 @@ const Layout: React.FC<
           </div>
         )}
       </div>
-      {!noFooter && isLoading && <Footer />}
+      {!noFooter && !isLoading && <Footer />}
     </main>
   );
 };
