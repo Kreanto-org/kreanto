@@ -11,6 +11,7 @@ import useWindowSize from "~/utils/useWindowSize";
 import { MdSend } from "react-icons/md";
 import { usePusher } from "../api/pusher/usePusher";
 import { HiDocumentArrowUp } from "react-icons/hi2";
+import Link from "next/link";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
@@ -97,7 +98,11 @@ const MessageChat: React.FC = () => {
           })}
           <p className="text-text-200">
             Messaging with{" "}
-            <span className="text-text-100/90">{otherPersonInChat?.name}</span>
+            <Link href={`/profile/${otherPersonInChat?.slug}`}>
+              <span className="text-text-100/90">
+                {otherPersonInChat?.name}
+              </span>
+            </Link>
           </p>
         </InfiniteScroll>
       </div>
