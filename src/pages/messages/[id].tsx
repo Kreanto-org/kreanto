@@ -10,8 +10,9 @@ import Message from "~/components/page-specific/messages/message";
 import useWindowSize from "~/utils/useWindowSize";
 import { MdSend } from "react-icons/md";
 import { usePusher } from "../api/pusher/usePusher";
-import { HiDocumentArrowUp } from "react-icons/hi2";
 import Link from "next/link";
+import SendPrintRequestButton from "~/components/page-specific/messages/send-print-request";
+import { useShortenedName } from "~/utils/useShortenedName";
 
 const MessageChat: React.FC = () => {
   const router = useRouter();
@@ -48,6 +49,12 @@ const MessageChat: React.FC = () => {
   // ----------
   const [message, setMessage] = useState("");
 
+  const otherPersonInChatQuery = api.chat.getOtherUserInChat.useQuery({
+    id,
+  });
+  const otherPersonInChat = otherPersonInChatQuery.data;
+  const shortName = useShortenedName(otherPersonInChat?.name ?? "");
+
   if (!canAccess && status !== "loading" && canAccessQuery.status !== "loading")
     return (
       <Layout>
@@ -63,11 +70,6 @@ const MessageChat: React.FC = () => {
     setMessage("");
     setDisabled(false);
   };
-
-  const otherPersonInChatQuery = api.chat.getOtherUserInChat.useQuery({
-    id,
-  });
-  const otherPersonInChat = otherPersonInChatQuery.data;
 
   return (
     <Layout needsAuth noFooter loading={isLoading}>
@@ -99,23 +101,17 @@ const MessageChat: React.FC = () => {
           <p className="text-text-200">
             Messaging with{" "}
             <Link href={`/profile/${otherPersonInChat?.slug}`}>
-              <span className="text-text-100/90">
-                {otherPersonInChat?.name}
-              </span>
+              <span className="text-text-100/90">{shortName}</span>
             </Link>
           </p>
         </InfiniteScroll>
       </div>
       <div className="mt-6 flex w-full items-center gap-2 px-4">
         {!sessionData?.user.printerProfile && (
-          <Button
-            onClick={() => console.log("hi")}
-            disabled={disabled}
-            className="h-full bg-highlight py-3 text-white md:bg-bg-200 md:text-highlight"
-            name="Request a print"
-          >
-            <HiDocumentArrowUp />
-          </Button>
+          <SendPrintRequestButton
+            name={shortName}
+            printerId={otherPersonInChat?.id ?? ""}
+          />
         )}
 
         <input
@@ -128,7 +124,7 @@ const MessageChat: React.FC = () => {
         <Button
           onClick={sendMessage}
           disabled={disabled}
-          className="h-full bg-highlight py-2 text-white md:bg-bg-200 md:text-highlight"
+          className="h-full bg-highlight py-2 text-white"
           name="Send"
         >
           {isMobile ? <MdSend size="1.2rem" /> : <span>Send</span>}
