@@ -1,4 +1,5 @@
 import React from "react";
+import { cn } from "~/utils/cn";
 
 export const Input = React.forwardRef<
   HTMLInputElement,
@@ -8,9 +9,10 @@ export const Input = React.forwardRef<
     <input
       {...rest}
       ref={ref}
-      className={`w-full rounded-lg bg-bg-300 px-3 py-[10px] outline-none ${
-        className ?? ""
-      }`}
+      className={cn(
+        "flex-1 rounded-lg bg-bg-200 py-2 pl-4 text-white outline-none md:px-4",
+        className
+      )}
     />
   );
 });
