@@ -4,13 +4,14 @@ export const Header: React.FC<{ title?: string }> = ({ title }) => {
   return (
     <Head>
       <title>{`${title ? title + " | " : ""}Kreanto`}</title>
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       <link rel="shortcut icon" href="/favicon.ico" />
       <meta charSet="UTF-8" />
       <link rel="manifest" href="manifest.json" />
       <meta
         name="keywords"
-        content="3d printing, 3d print, design, 3d model, designer, maker, creator, create, kreanto"
+        content="design, designer, maker, creator, create, kreanto, 3d, 3D, kreanto, kreanto org, 
+        kreanto.org, help, 3d printing, 3d print, 3D print, 3D printing, 3D modeling, 3D model, 3d modeling, 3d model"
       />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
