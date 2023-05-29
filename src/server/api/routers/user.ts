@@ -67,4 +67,14 @@ export const userRouter = createTRPCRouter({
       include: { printerProfile: true },
     });
   }),
+
+  lastActive: protectedProcedure.mutation(async ({ ctx }) => {
+    const lastTime = ctx.session.user.lastActive.toDateString();
+    if (lastTime === new Date().toDateString()) return;
+
+    return await ctx.prisma.user.update({
+      where: { id: ctx.session.user.id },
+      data: { lastActive: new Date() },
+    });
+  }),
 });

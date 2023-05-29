@@ -6,6 +6,8 @@ import { useSession } from "next-auth/react";
 import useWindowSize from "~/utils/useWindowSize";
 import MobileNavbar from "./mobile-navbar";
 import Loading from "./loading";
+import { useRef } from "react";
+import { api } from "~/utils/api";
 
 const Layout: React.FC<
   React.PropsWithChildren<{
@@ -28,6 +30,14 @@ const Layout: React.FC<
   const { status } = useSession();
   const { isMobile } = useWindowSize();
   const isLoading = loading || status === "loading";
+
+  const setLastActive = api.user.lastActive.useMutation();
+  const sent = useRef(false);
+
+  if (!sent.current) {
+    setLastActive.mutate();
+    sent.current = true;
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-bg-main text-text-100">
