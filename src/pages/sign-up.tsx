@@ -39,6 +39,7 @@ const SignUpPage: NextPage = () => {
     handleSubmit,
     register,
     formState: { errors },
+    watch,
     setValue,
   } = useForm<NewUserData>({
     criteriaMode: "all",
@@ -128,6 +129,8 @@ const SignUpPage: NextPage = () => {
                 lengthData={register("length", { required: true })}
                 widthData={register("width", { required: true })}
                 heightData={register("height", { required: true })}
+                watch={watch}
+                setValue={setValue}
               />
               <PrinterInfo
                 setColorChoices={setColorChoices}

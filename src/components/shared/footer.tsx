@@ -3,7 +3,7 @@ import Logo from "./logo";
 import Link from "next/link";
 import { BsDiscord, BsGithub, BsInstagram } from "react-icons/bs";
 import { useState } from "react";
-import { IconType } from "react-icons";
+import type { IconType } from "react-icons";
 import { cn } from "~/utils/cn";
 
 const Footer: React.FC = () => {
