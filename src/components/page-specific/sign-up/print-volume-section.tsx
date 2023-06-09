@@ -28,7 +28,8 @@ const PrintVolumeSection: React.FC<{
 
         {watch("length") && (
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               setValue("width", watch("length"));
               setValue("height", watch("length"));
             }}
