@@ -40,9 +40,12 @@ const Layout: React.FC<
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-bg-main text-text-100">
+    <main className="relative flex min-h-screen flex-col items-center bg-bg-main text-text-100">
       <Header title={title} />
-      {isMobile ? <MobileNavbar /> : <Navbar />}
+      <div className="absolute top-0">
+        {isMobile ? <MobileNavbar /> : <Navbar />}
+      </div>
+
       <div
         className={cn(
           "flex h-full w-full flex-1 flex-col items-center justify-center overflow-x-hidden",

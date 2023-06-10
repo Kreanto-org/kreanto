@@ -17,9 +17,11 @@ const Index: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
 export default Index;
 
 export async function getStaticProps() {
-  const pages: InfoPageType[] = await cms.fetch(
-    `*[_type == "post"]{title, 'icon': icon.name, 'slug': slug.current}`
-  );
+  // const pages: InfoPageType[] = await cms.fetch(
+  //   `*[_type == "post"]{title, 'icon': icon.name, 'slug': slug.current}`
+  // );
+
+  const pages: InfoPageType[] = [];
 
   return {
     props: {
