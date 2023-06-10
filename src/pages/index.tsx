@@ -5,7 +5,7 @@ import Layout from "~/components/shared/layout";
 const Home: NextPage = () => {
   return (
     <Layout>
-      <div className="flex flex-col items-start">
+      <div className="flex h-[75vh] flex-col items-start justify-center">
         <h1 className="mt-10 tracking-tight text-white sm:text-[7rem]">
           KREANTO
         </h1>
@@ -18,7 +18,13 @@ const Home: NextPage = () => {
       </div>
       <div className="relative w-full">
         <HexagonOutline className="absolute left-0" />
-        <h1 className="mt-20 text-[3.5rem]">From imagination to reality.</h1>
+        <h1 className="mt-44 ml-36 max-w-[50vw] text-[5rem]">
+          From imagination to reality.
+        </h1>
+        <p className="ml-36 mt-2 w-fit max-w-[50vw] text-left text-text-200">
+          Kreanto connects the creativity of young minds to the technology that
+          can make their dreams real.
+        </p>
       </div>
     </Layout>
   );
