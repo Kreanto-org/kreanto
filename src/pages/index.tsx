@@ -1,5 +1,7 @@
 import { type NextPage } from "next";
+import Dots from "~/components/page-specific/home/dots";
 import HexagonOutline from "~/components/page-specific/home/hexagon-outline";
+import Objects from "~/components/page-specific/home/objects";
 import Layout from "~/components/shared/layout";
 
 const Home: NextPage = () => {
@@ -25,6 +27,14 @@ const Home: NextPage = () => {
           Kreanto connects the creativity of young minds to the technology that
           can make their dreams real.
         </p>
+      </div>
+      <div className="relative flex w-full flex-col items-end">
+        <Dots className="absolute -right-36" />
+        <h1 className="mt-44 mr-36 max-w-[50vw] text-right text-[5rem]">
+          Inspiring the <span className="underline">next generation</span> of
+          engineers
+        </h1>
+        <Objects />
       </div>
     </Layout>
   );
