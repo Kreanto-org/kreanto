@@ -28,13 +28,16 @@ const Home: NextPage = () => {
           can make their dreams real.
         </p>
       </div>
-      <div className="relative flex w-full flex-col items-end">
-        <Dots className="absolute -right-36" />
-        <h1 className="mt-44 mr-36 max-w-[50vw] text-right text-[5rem]">
-          Inspiring the <span className="underline">next generation</span> of
-          engineers
-        </h1>
+      <div className="relative flex w-full  items-center justify-between">
+        <Dots className="w-0" />
         <Objects />
+        <div className="relative items-start justify-end">
+          <Dots className="absolute -right-36" />
+          <h1 className="mt-44 mr-36 max-w-[50vw] text-right text-[5rem]">
+            Inspiring the <span className="underline">next generation</span> of
+            engineers
+          </h1>
+        </div>
       </div>
     </Layout>
   );

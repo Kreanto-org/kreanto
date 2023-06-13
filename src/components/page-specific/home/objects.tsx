@@ -1,9 +1,10 @@
-const Objects: React.FC = () => (
+const Objects: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     width="495"
     height="368"
     viewBox="0 0 495 368"
     fill="none"
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
   >
     <mask id="path-1-inside-1_72_653" fill="white">
