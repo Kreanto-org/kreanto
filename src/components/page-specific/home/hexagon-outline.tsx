@@ -12,38 +12,38 @@ const HexagonOutline: React.FC<{ className?: string }> = ({
     <path
       d="M319.761 166.436L140.595 51.1376"
       stroke="white"
-      stroke-opacity="0.35"
-      stroke-width="0.6807"
+      strokeOpacity="0.35"
+      strokeWidth="0.6807"
     />
     <path
       d="M209.041 57.6376L23.2468 150.155"
       stroke="white"
-      stroke-opacity="0.35"
-      stroke-width="0.6807"
+      strokeOpacity="0.35"
+      strokeWidth="0.6807"
     />
     <path
       d="M190.096 367.926L10.9302 252.628"
       stroke="white"
-      stroke-opacity="0.35"
-      stroke-width="0.6807"
+      strokeOpacity="0.35"
+      strokeWidth="0.6807"
     />
     <path
       d="M45.5791 311.647L52.8086 104.218"
       stroke="white"
-      stroke-opacity="0.35"
-      stroke-width="0.6807"
+      strokeOpacity="0.35"
+      strokeWidth="0.6807"
     />
     <path
       d="M289.671 115.112L282.441 322.541"
       stroke="white"
-      stroke-opacity="0.35"
-      stroke-width="0.6807"
+      strokeOpacity="0.35"
+      strokeWidth="0.6807"
     />
     <path
       d="M126.209 369.122L312.003 276.604"
       stroke="white"
-      stroke-opacity="0.35"
-      stroke-width="0.6807"
+      strokeOpacity="0.35"
+      strokeWidth="0.6807"
     />
   </svg>
 );

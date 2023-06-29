@@ -7,6 +7,7 @@ import ResponseInfoSection from "~/components/page-specific/profile/response-inf
 import Layout from "~/components/shared/layout";
 import Button from "~/components/ui/button";
 import { api } from "~/utils/api";
+import { useLastActiveString } from "~/utils/lastActiveString";
 
 const ProfilePage: React.FC = () => {
   const { data: sessionData, status } = useSession();
@@ -15,6 +16,7 @@ const ProfilePage: React.FC = () => {
   const userQuery = api.user.findUnique.useQuery({ slug });
   const user = userQuery.data;
   const ctx = api.useContext();
+  const lastActive = useLastActiveString(user?.lastActive);
 
   const messageMut = api.chat.create.useMutation({
     onSuccess: async () => {
@@ -31,6 +33,9 @@ const ProfilePage: React.FC = () => {
     <Layout needsAuth title={user?.name ?? ""} className="items-start">
       <div className="mx-2 flex flex-col items-start gap-1  px-6 pt-2 pb-4">
         <h1 className="w-full text-left">{user?.name}</h1>
+        {user?.lastActive && (
+          <p className="pl-2 text-sm text-text-200">{lastActive}</p>
+        )}
 
         <ResponseInfoSection {...user} />
       </div>
