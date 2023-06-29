@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
 import { PortableTextLayout } from "~/components/page-specific/info/portable-text";
 import Layout from "~/components/shared/layout";
-import { type InfoPageType, cms, DynamicIcon } from "~/server/cms";
+import { type InfoPageType, cms } from "~/server/cms";
 
 import { HiOutlineArrowUturnLeft } from "react-icons/hi2";
 import useWindowSize from "~/utils/useWindowSize";
 import Link from "next/link";
+import SVG from "react-inlinesvg";
 
 const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
   const router = useRouter();
@@ -13,13 +14,15 @@ const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
   const page = pages.filter((page) => page.slug === slug)[0];
   const { isMobile } = useWindowSize();
 
+  console.log(page);
+
   return (
     <Layout className="flex-row items-start p-6 pt-12">
       <div className="flex h-full w-full flex-[4] flex-col items-start justify-start">
-        <DynamicIcon
-          name={page?.icon}
-          size="5.5rem"
-          className="mb-4 ml-6 text-highlight"
+        <SVG
+          src={page?.icon ?? ""}
+          fontSize="5.5rem"
+          className="mb-4 text-highlight"
         />
         <h1 className="w-full break-words text-left text-3xl md:my-5 md:text-[4.75rem]">
           {page?.title}
@@ -62,7 +65,7 @@ export default InfoPage;
 
 export async function getStaticProps() {
   const pages: InfoPageType[] = await cms.fetch(
-    `*[_type == "post"]{title, 'slug': slug.current, body, 'icon': icon.name}`
+    `*[_type == "post"]{title, 'slug': slug.current, body, 'icon': icon.svg}`
   );
 
   return {

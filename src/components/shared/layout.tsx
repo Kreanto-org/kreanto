@@ -48,7 +48,7 @@ const Layout: React.FC<
 
       <div
         className={cn(
-          "flex h-full w-full flex-1 flex-col items-center justify-center overflow-x-hidden overflow-y-clip pb-20",
+          "mt-10 flex h-full w-full flex-1 flex-col items-center justify-center overflow-x-hidden overflow-y-clip pb-20",
           className
         )}
       >
