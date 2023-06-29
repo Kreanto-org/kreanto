@@ -48,7 +48,7 @@ const Layout: React.FC<
 
       <div
         className={cn(
-          "mt-10 flex h-full w-full flex-1 flex-col items-center justify-center overflow-x-hidden overflow-y-clip pb-20",
+          "mt-14 flex h-full w-full flex-1 flex-col items-center justify-center overflow-x-hidden overflow-y-clip pb-20",
           className
         )}
       >
@@ -58,7 +58,7 @@ const Layout: React.FC<
           <>{children}</>
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center">
-            <h1>First, sign in!</h1>
+            <h1 className="text-center">First, sign in!</h1>
             <p>{unAuthMessage ?? ""}</p>
           </div>
         )}

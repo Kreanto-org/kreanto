@@ -7,7 +7,7 @@ export const Header: React.FC<{ title?: string }> = ({ title }) => {
       <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       <link rel="shortcut icon" href="/favicon.ico" />
       <meta charSet="UTF-8" />
-      <link rel="manifest" href="manifest.json" />
+      <link rel="manifest" href="/manifest.json" />
       <meta
         name="keywords"
         content="design, designer, maker, creator, create, kreanto, 3d, 3D, kreanto, kreanto org, 
