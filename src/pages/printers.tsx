@@ -6,7 +6,6 @@ import { api } from "~/utils/api";
 const Printers: NextPage = () => {
   const printersQuery = api.user.getPrinters.useQuery();
   const printers = printersQuery.data;
-  console.log(printers);
   return (
     <Layout>
       {printers?.map(({ name, slug, image, printerProfile: profile }, i) => (

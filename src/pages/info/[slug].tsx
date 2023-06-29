@@ -14,8 +14,6 @@ const InfoPage: React.FC<{ pages: InfoPageType[] }> = ({ pages }) => {
   const page = pages.filter((page) => page.slug === slug)[0];
   const { isMobile } = useWindowSize();
 
-  console.log(page);
-
   return (
     <Layout className="flex-row items-start p-6 pt-12">
       <div className="flex h-full w-full flex-[4] flex-col items-start justify-start">

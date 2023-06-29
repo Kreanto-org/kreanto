@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <div className="flex h-[75vh] flex-col items-start justify-center">
-        <h1 className="mt-10 tracking-tight text-white sm:text-[7rem]">
+        <h1 className="mt-10 text-center tracking-tight text-white sm:text-[7rem]">
           KREANTO
         </h1>
         <p className="ml-2 -mt-4 w-fit text-left text-text-200">
