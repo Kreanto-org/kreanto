@@ -77,4 +77,47 @@ export const userRouter = createTRPCRouter({
       data: { lastActive: new Date() },
     });
   }),
+
+  hasStarred: protectedProcedure
+    .input(z.object({ printerId: z.string() }))
+    .query(async ({ ctx, input }) => {
+      if (ctx.session.user.printerProfile) return;
+
+      return await ctx.prisma.starredPrinter.findUnique({
+        where: {
+          designerId_printerId: {
+            designerId: ctx.session.user.id,
+            printerId: input.printerId,
+          },
+        },
+      });
+    }),
+
+  starPrinter: protectedProcedure
+    .input(z.object({ printerId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      if (ctx.session.user.printerProfile) return;
+
+      return await ctx.prisma.starredPrinter.create({
+        data: {
+          designerId: ctx.session.user.id,
+          printerId: input.printerId,
+        },
+      });
+    }),
+
+  unStarPrinter: protectedProcedure
+    .input(z.object({ printerId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      if (ctx.session.user.printerProfile) return;
+
+      return await ctx.prisma.starredPrinter.delete({
+        where: {
+          designerId_printerId: {
+            designerId: ctx.session.user.id,
+            printerId: input.printerId,
+          },
+        },
+      });
+    }),
 });

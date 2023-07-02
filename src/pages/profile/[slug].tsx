@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { BiCheckCircle } from "react-icons/bi";
+import { BsStar, BsStarFill } from "react-icons/bs";
 import PrinterInfoSection from "~/components/page-specific/profile/printer-info-section";
 import ResponseInfoSection from "~/components/page-specific/profile/response-info-section";
 import Layout from "~/components/shared/layout";
@@ -23,16 +24,46 @@ const ProfilePage: React.FC = () => {
       await ctx.invalidate();
     },
   });
+  const starMut = api.user.starPrinter.useMutation({
+    onSuccess: async () => {
+      await ctx.invalidate();
+    },
+  });
+  const unStarMut = api.user.unStarPrinter.useMutation({
+    onSuccess: async () => {
+      await ctx.invalidate();
+    },
+  });
+
   const requestedQuery = api.chat.checkRequested.useQuery({
     recipientId: user?.id ?? "",
   });
+  const starredQuery = api.user.hasStarred.useQuery({
+    printerId: user?.id ?? "",
+  });
+  const starred = starredQuery.data;
   const requested = requestedQuery.data;
   const [loading, setLoading] = useState(false);
 
   return (
     <Layout needsAuth title={user?.name ?? ""} className="items-start">
       <div className="mx-2 flex flex-col items-start  px-6 pt-2 pb-4">
-        <h1 className="w-full text-left">{user?.name}</h1>
+        <div className="flex w-full">
+          <h1 className="w-full text-left">{user?.name}</h1>
+          {!sessionData?.user?.printerProfile && (
+            <Button
+              name="star printer"
+              className="bg-transparent"
+              onClick={() =>
+                starred
+                  ? unStarMut.mutate({ printerId: user?.id ?? "" })
+                  : starMut.mutate({ printerId: user?.id ?? "" })
+              }
+            >
+              {starred ? <BsStarFill /> : <BsStar />}
+            </Button>
+          )}
+        </div>
         {user?.lastActive && (
           <p className="-pl-2 text-sm text-text-200">{lastActive}</p>
         )}

@@ -2,153 +2,164 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
-    relationMode = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? @db.Text
-    access_token      String? @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
-    @@index([userId])
+  @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@index([userId])
+  @@index([userId])
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 model User {
-    id              String    @id @default(cuid())
-    slug            String    @unique
-    email           String?   @unique
-    emailVerified   DateTime?
-    image           String?
-    accounts        Account[]
-    sessions        Session[]
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
 
-    name            String?
-    age             Int?
-    location        String?
-    lastActive      DateTime @default(now())
-    avgRespTime     Int @default(0)
-    numResponses    Int @default(0)
-    printerProfile  PrinterProfile?
-    hasSignedUp     Boolean @default(false)
-    chats           Chat[]
-    requests        PrintRequest[]
+  name            String?
+  age             Int?
+  location        String?
+  lastActive      DateTime         @default(now())
+  avgRespTime     Int              @default(0)
+  numResponses    Int              @default(0)
+  printerProfile  PrinterProfile?
+  hasSignedUp     Boolean          @default(false)
+  chats           Chat[]
+  requests        PrintRequest[]
+  starredPrinters StarredPrinter[]
+}
+
+model StarredPrinter {
+  designer   User           @relation(fields: [designerId], references: [id])
+  designerId String
+  printer    PrinterProfile @relation(fields: [printerId], references: [userId])
+  printerId  String
+
+  @@id([designerId, printerId])
+  @@index([designerId])
+  @@index([printerId])
 }
 
 model PrinterProfile {
   // These are for printers, if the user isn't a printer, empty
-  user          User? @relation(fields: [userId], references: [id])
-  userId        String @unique
-	points        Int @default(0)
-  messageRequests    Chat[]
-  printRequests      PrintRequest[]
+  user            User?            @relation(fields: [userId], references: [id])
+  userId          String           @unique
+  points          Int              @default(0)
+  messageRequests Chat[]
+  printRequests   PrintRequest[]
+  starers         StarredPrinter[]
 
-  printTime     PrintTime @default(LOW)
-  colorType     ColorType @default(SINGLE)
-  colors        ColorsOnPrinterProfile[]
-  length        Int @default(150)
-  width         Int @default(150)
-  height        Int @default(150)
+  printTime PrintTime                @default(LOW)
+  colorType ColorType                @default(SINGLE)
+  colors    ColorsOnPrinterProfile[]
+  length    Int                      @default(150)
+  width     Int                      @default(150)
+  height    Int                      @default(150)
 }
 
-model PrintRequest{
-  id            String @id @default(cuid())
-  printer       PrinterProfile @relation(fields: [printerId], references: [userId])
-  printerId     String
-  requester     User @relation(fields: [requesterId], references: [id])
-  requesterId   String
+model PrintRequest {
+  id          String         @id @default(cuid())
+  printer     PrinterProfile @relation(fields: [printerId], references: [userId])
+  printerId   String
+  requester   User           @relation(fields: [requesterId], references: [id])
+  requesterId String
 
-  link          String
-  colorChoice   String
+  link        String
+  colorChoice String
 
   @@index([printerId])
   @@index([requesterId])
 }
 
 model Color {
-  name    String @unique
-  hex     String
-  index   Int
+  name  String @unique
+  hex   String
+  index Int
 
-  users    ColorsOnPrinterProfile[]
+  users ColorsOnPrinterProfile[]
 }
 
 model ColorsOnPrinterProfile {
-  printer       PrinterProfile @relation(fields: [printerId], references: [userId])
-  printerId     String
-  color         Color @relation(fields: [colorName], references: [name])
-  colorName     String
-  
+  printer   PrinterProfile @relation(fields: [printerId], references: [userId])
+  printerId String
+  color     Color          @relation(fields: [colorName], references: [name])
+  colorName String
 
   @@id([printerId, colorName])
   @@index([printerId])
   @@index([colorName])
 }
 
-model Chat{
-  id          String @id @default(cuid())
-  members     User[]
-  messages    Message[]
+model Chat {
+  id       String    @id @default(cuid())
+  members  User[]
+  messages Message[]
 
   // Used for message requests to printers
-  creator_id  String
-  printer     PrinterProfile? @relation(fields: [printer_id], references: [userId])
-  printer_id  String?
+  creator_id String
+  printer    PrinterProfile? @relation(fields: [printer_id], references: [userId])
+  printer_id String?
 
-  @@index([printer_id])
   @@unique([creator_id, printer_id])
+  @@index([printer_id])
 }
 
-model Message{
-  id          String @id @default(cuid())
-  text        String
-  sentOn      DateTime @default(now())
-  userId      String
+model Message {
+  id     String   @id @default(cuid())
+  text   String
+  sentOn DateTime @default(now())
+  userId String
 
-  chat        Chat @relation(fields:[chatId], references: [id])
-  chatId      String
-
+  chat   Chat   @relation(fields: [chatId], references: [id])
+  chatId String
 
   @@unique([chatId, sentOn])
 }
