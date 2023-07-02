@@ -31,10 +31,10 @@ const ProfilePage: React.FC = () => {
 
   return (
     <Layout needsAuth title={user?.name ?? ""} className="items-start">
-      <div className="mx-2 flex flex-col items-start gap-1  px-6 pt-2 pb-4">
+      <div className="mx-2 flex flex-col items-start  px-6 pt-2 pb-4">
         <h1 className="w-full text-left">{user?.name}</h1>
         {user?.lastActive && (
-          <p className="pl-2 text-sm text-text-200">{lastActive}</p>
+          <p className="-pl-2 text-sm text-text-200">{lastActive}</p>
         )}
 
         <ResponseInfoSection {...user} />
