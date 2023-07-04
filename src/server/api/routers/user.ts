@@ -61,9 +61,34 @@ export const userRouter = createTRPCRouter({
         include: { printerProfile: true },
       });
     }),
-  getPrinters: publicProcedure.query(async ({ ctx }) => {
+  getPrinters: publicProcedure
+    .input(z.object({ includeStarred: z.boolean().default(true) }))
+    .query(async ({ ctx, input }) => {
+      return await ctx.prisma.user.findMany({
+        where: {
+          NOT: [
+            { printerProfile: null },
+            input.includeStarred
+              ? {}
+              : {
+                  printerProfile: {
+                    starers: { some: { designerId: ctx.session?.user.id } },
+                  },
+                },
+          ],
+        },
+        include: { printerProfile: true },
+      });
+    }),
+
+  getStarredPrinters: protectedProcedure.query(async ({ ctx }) => {
+    if (ctx.session?.user.printerProfile) return;
     return await ctx.prisma.user.findMany({
-      where: { NOT: [{ printerProfile: null }] },
+      where: {
+        printerProfile: {
+          starers: { some: { designerId: ctx.session?.user.id } },
+        },
+      },
       include: { printerProfile: true },
     });
   }),
