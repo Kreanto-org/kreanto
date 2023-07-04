@@ -111,13 +111,15 @@ export const userRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       if (ctx.session.user.printerProfile) return;
 
-      return await ctx.prisma.starredPrinter.delete({
-        where: {
-          designerId_printerId: {
-            designerId: ctx.session.user.id,
-            printerId: input.printerId,
+      return await ctx.prisma.starredPrinter
+        .delete({
+          where: {
+            designerId_printerId: {
+              designerId: ctx.session.user.id,
+              printerId: input.printerId,
+            },
           },
-        },
-      });
+        })
+        .catch(() => 0);
     }),
 });
