@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiCheckCircle } from "react-icons/bi";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import PrinterInfoSection from "~/components/page-specific/profile/printer-info-section";
@@ -9,6 +9,7 @@ import Layout from "~/components/shared/layout";
 import Button from "~/components/ui/button";
 import { api } from "~/utils/api";
 import { useLastActiveString } from "~/utils/lastActiveString";
+import ConfettiExplosion from "react-confetti-explosion";
 
 const ProfilePage: React.FC = () => {
   const { data: sessionData, status } = useSession();
@@ -44,6 +45,10 @@ const ProfilePage: React.FC = () => {
   const starred = starredQuery.data;
   const requested = requestedQuery.data;
   const [loading, setLoading] = useState(false);
+  const [starClicked, setStarClicked] = useState(false);
+  const [starState, setStarState] = useState<boolean>();
+
+  useEffect(() => setStarState(!!starred), [starred]);
 
   return (
     <Layout needsAuth title={user?.name ?? ""} className="items-start">
@@ -51,17 +56,33 @@ const ProfilePage: React.FC = () => {
         <div className="flex w-full">
           <h1 className="w-full text-left">{user?.name}</h1>
           {!sessionData?.user?.printerProfile && (
-            <Button
-              name="star printer"
-              className="bg-transparent"
-              onClick={() =>
-                starred
-                  ? unStarMut.mutate({ printerId: user?.id ?? "" })
-                  : starMut.mutate({ printerId: user?.id ?? "" })
-              }
-            >
-              {starred ? <BsStarFill /> : <BsStar />}
-            </Button>
+            <div className="flex flex-col items-center justify-center">
+              <Button
+                name="star printer"
+                className="bg-transparent"
+                onClick={() => {
+                  if (starred) {
+                    setStarState(false);
+                    unStarMut.mutate({ printerId: user?.id ?? "" });
+                    setStarClicked(false);
+                  } else {
+                    setStarState(true);
+                    setStarClicked(true);
+                    starMut.mutate({ printerId: user?.id ?? "" });
+                  }
+                }}
+              >
+                {starState ? <BsStarFill /> : <BsStar />}
+              </Button>
+              {starClicked && (
+                <ConfettiExplosion
+                  force={0.6}
+                  duration={3200}
+                  particleCount={30}
+                  width={400}
+                />
+              )}
+            </div>
           )}
         </div>
         {user?.lastActive && (
