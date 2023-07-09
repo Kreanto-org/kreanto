@@ -5,6 +5,13 @@ import Layout from "~/components/shared/layout";
 import { api } from "~/utils/api";
 import useWindowSize from "~/utils/useWindowSize";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "~/components/ui/accordion";
+
 const Messages: React.FC = () => {
   const { data: sessionData } = useSession();
   const { isMobile } = useWindowSize();
@@ -20,36 +27,66 @@ const Messages: React.FC = () => {
   return (
     <Layout needsAuth className="flex-row items-start p-10 pt-12">
       <div className="flex h-full w-full flex-[4] flex-col items-start justify-start">
-        <h1>{isMobile ? "" : "Your "}Messages</h1>
+        {!isMobile && <h1>Your Messages</h1>}
 
         {isMobile &&
         sessionData?.user.printerProfile &&
         messageRequests?.length &&
         messageRequests?.length > 0 ? (
           <div className="flex w-full flex-col">
-            {messageRequests.map((req, i) => (
-              <RequestCard req={req} key={i} />
-            ))}
+            <Accordion
+              type="multiple"
+              className="w-full"
+              defaultValue={["Messages"]}
+            >
+              <AccordionItem value="Requests">
+                <AccordionTrigger className="text-md">
+                  Requests
+                </AccordionTrigger>
+                <AccordionContent className="flex w-full flex-col gap-2 data-[state=open]:py-2">
+                  {messageRequests.map((req, i) => (
+                    <RequestCard req={req} key={i} />
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="Messages">
+                <AccordionTrigger className="text-md">
+                  Messages
+                </AccordionTrigger>
+                <AccordionContent className="flex w-full flex-col gap-2 data-[state=open]:py-2">
+                  {chats?.length && chats?.length > 0 ? (
+                    <div className="flex w-full flex-col">
+                      {chats.map((chat, i) => (
+                        <ChatLink chat={chat} key={i} />
+                      ))}
+                    </div>
+                  ) : (
+                    sessionData?.user.printerProfile && <h4>No Chats</h4>
+                  )}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         ) : (
           <></>
         )}
 
         {isMobile && chats?.length && messageRequests?.length ? (
-          <hr className="my-2  w-full border-text-100/20" />
+          <hr className="  w-full border-text-100/20" />
         ) : (
           <></>
         )}
 
-        {chats?.length && chats?.length > 0 ? (
-          <div className="flex w-full flex-col">
-            {chats.map((chat, i) => (
-              <ChatLink chat={chat} key={i} />
-            ))}
-          </div>
-        ) : (
-          sessionData?.user.printerProfile && <h4>No Chats</h4>
-        )}
+        {!isMobile &&
+          (chats?.length && chats?.length > 0 ? (
+            <div className="flex w-full flex-col">
+              {chats.map((chat, i) => (
+                <ChatLink chat={chat} key={i} />
+              ))}
+            </div>
+          ) : (
+            sessionData?.user.printerProfile && <h4>No Chats</h4>
+          ))}
       </div>
       {!isMobile &&
       sessionData?.user.printerProfile &&
