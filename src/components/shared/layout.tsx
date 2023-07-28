@@ -8,6 +8,7 @@ import MobileNavbar from "./mobile-navbar";
 import Loading from "./loading";
 import { useRef } from "react";
 import { api } from "~/utils/api";
+import { Toaster } from "~/components/ui/toaster";
 
 const Layout: React.FC<
   React.PropsWithChildren<{
@@ -42,6 +43,7 @@ const Layout: React.FC<
   return (
     <main className="relative flex min-h-screen flex-col items-center bg-bg-main text-text-100">
       <Header title={title} />
+      <Toaster />
       <div className="absolute top-0">
         {isMobile ? <MobileNavbar /> : <Navbar />}
       </div>
