@@ -14,6 +14,7 @@ import { Input } from "~/components/ui/input";
 import Button from "~/components/ui/button";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { toast } from "~/components/ui/use-toast";
 
 interface PrintRequestType {
   colorChoice: string;
@@ -32,7 +33,19 @@ const SendPrintRequestButton: React.FC<{ name: string; printerId: string }> = ({
     criteriaMode: "all",
   });
 
-  const reqMut = api.request.request.useMutation();
+  const reqMut = api.request.request.useMutation({
+    onSuccess: () =>
+      toast({
+        description: "Your print request has been sent.",
+        variant: "success",
+      }),
+    onError: () =>
+      toast({
+        description:
+          "Uh-oh, something went wrong. Check over your info and try again in a bit!",
+        variant: "destructive",
+      }),
+  });
   const urlRegex =
     /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
